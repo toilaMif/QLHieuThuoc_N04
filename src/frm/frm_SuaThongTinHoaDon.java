@@ -1,0 +1,23 @@
+package frm;
+
+import java.awt.Font;
+
+import frm_default.frm_default3;
+
+public class frm_SuaThongTinHoaDon extends frm_default3 {
+	public frm_SuaThongTinHoaDon() {
+		setTitle("Sửa Thông Tin Hóa Đơn");
+		jlTieuDeTrang.setText("Sửa Thông Tin Hóa Đơn");
+		
+		tieuDeCot = new String[] {"Mã hóa đơn", "Ngày lập", "Người lập", "Khách hàng","Thuế","Hình thức thanh toán","Tổng tiền"};
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		header.setFont(new Font("Arial", Font.BOLD, 15));
+		table.setRowHeight(30);
+		taoThongTin();
+		}
+
+	public static void main(String[] args) {
+		new frm_SuaThongTinHoaDon();
+	}
+}

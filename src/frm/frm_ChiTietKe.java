@@ -1,0 +1,20 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietKe extends frm_default3 {
+	public frm_ChiTietKe() {
+		setTitle("Chi Tiết Kệ Thuốc");
+		jlTieuDeTrang.setText("Chi Tiết Kệ Thuốc");
+		
+		tieuDeCot  = new String[] {"Mã thuốc", "Tên thuốc", "Đơn vị", "Danh mục", 	"Hạn sữ dụng","Số lượng"	};
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		taoThongTin();
+		}
+
+	public static void main(String[] args) {
+		new frm_ChiTietKe();
+	}
+}
