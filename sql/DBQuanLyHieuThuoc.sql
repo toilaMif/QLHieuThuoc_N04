@@ -99,7 +99,7 @@ CREATE TABLE Thue (
 
 CREATE TABLE HoaDon (
     maHoaDon VARCHAR(20) PRIMARY KEY,
-    ngayLap DATE NOT NULL, -- Sửa từ DECIMAL(10,2) thành DATE
+    ngayLap DATE NOT NULL, 
     tongTien DECIMAL(10,2) NOT NULL,
     maNV VARCHAR(20) NOT NULL,
     maKH VARCHAR(20) NOT NULL,
@@ -209,7 +209,7 @@ CREATE TABLE CTKeThuoc (
     FOREIGN KEY (maKe) REFERENCES KeThuoc(maKe),
     FOREIGN KEY (maThuoc) REFERENCES Thuoc(maThuoc),
     FOREIGN KEY (maDonVi) REFERENCES DonVi(maDV),
-    FOREIGN KEY (maDM) REFERENCES DanhMucThuoc(maDM) -- Thêm ràng buộc khóa ngoại
+    FOREIGN KEY (maDM) REFERENCES DanhMucThuoc(maDM) 
 );
 -- Data 
 --Chức vụ
@@ -686,7 +686,7 @@ INSERT INTO Thuoc (maThuoc, tenThuoc, maDonVi, maDM, maNCC, hanSuDung, giaNhap, 
 ('T161', N'Viên uống hỗ trợ hạ mỡ máu Sarafine Fujina Nhật Bản', 'DV001', 'DM007', 'NCC017', '2026-12-31', 684000.00, 855000.00, N'Nhật Bản'),
 ('T162', N'Keo ong Healthy Care Propolis 2000mg của Úc', 'DV001', 'DM007', 'NCC018', '2026-12-31', 402399.20, 502999.00, N'Úc'),
 ('T163', N'Hạt nêm Youki Nhật Bản hỗ trợ bổ sung dinh dưỡng cho bé', 'DV004', 'DM007', 'NCC019', '2026-12-31', 220000.00, 275000.00, N'Nhật Bản'),
-('T164', N'Viên uống thanh lọc phổi Bioglan Lung Clear của Úc', 'DV001', 'DM007', 'NCC020', '2026-31', '2026-12-31', 440000.00, 550000.00, N'Úc'),
+('T164', N'Viên uống thanh lọc phổi Bioglan Lung Clear của Úc', 'DV001', 'DM007', 'NCC020', '2026-12-31', 440000.00, 550000.00, N'Úc'),
 ('T165', N'Viên bổ huyết Siberia hỗ trợ hoạt huyết, tăng cường sức khỏe', 'DV001', 'DM007', 'NCC021', '2026-12-31', 360000.00, 450000.00, N'Nga'),
 ('T166', N'Hamomax - Hỗ trợ giảm mỡ máu, bền thành mạch hộp 30 viên', 'DV001', 'DM007', 'NCC022', '2026-12-31', 176000.00, 220000.00, N'Việt Nam'),
 ('T167', N'Viên rau xanh Forever Fields of Green bổ sung chất xơ', 'DV001', 'DM007', 'NCC023', '2026-12-31', 400000.00, 500000.00, N'Mỹ'),
