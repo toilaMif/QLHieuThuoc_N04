@@ -11,7 +11,8 @@ import entity.ent_KeThuoc;
 
 public class dao_KeThuoc {
 
-    // Lấy toàn bộ danh sách kệ thuốc
+    private static dao_KeThuoc dao;
+	// Lấy toàn bộ danh sách kệ thuốc
     public ArrayList<ent_KeThuoc> getAllKeThuoc() {
         ArrayList<ent_KeThuoc> list = new ArrayList<>();
         String sql = "SELECT * FROM KeThuoc ORDER BY maKe";
@@ -112,4 +113,12 @@ public class dao_KeThuoc {
 
         return ke;
     }
+    public static void main(String[] args) {
+    	dao = new dao_KeThuoc();
+    	ArrayList<ent_KeThuoc> danhSachKe = dao.getAllKeThuoc();
+    	System.out.println("\n📋 Danh sách kệ thuốc:");
+    	for (ent_KeThuoc ke : danhSachKe) {
+    	    System.out.println(ke);
+    	}
+	}
 }

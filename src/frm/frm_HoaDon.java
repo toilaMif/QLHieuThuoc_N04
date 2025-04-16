@@ -3,9 +3,13 @@ package frm;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
+import dao.dao_KeThuoc;
+import entity.ent_KeThuoc;
 import frm_default.frm_default2;
 import hieuUng.ImageResizer;
 
@@ -28,10 +32,10 @@ public class frm_HoaDon extends frm_default2 {
         tableModel.setRowCount(0); 
         
         
-        
+       
         table.setRowHeight(30); 
     }
-
+  
     public static void main(String[] args) {
         new frm_HoaDon();
     }

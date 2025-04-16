@@ -104,10 +104,12 @@ CREATE TABLE HoaDon (
     maNV VARCHAR(20) NOT NULL,
     maKH VARCHAR(20) NOT NULL,
     maThue VARCHAR(20),
+	hinhThucThanhToan NVARCHAR(50) NOT NULL,
     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV),
     FOREIGN KEY (maKH) REFERENCES KhachHang(maKH),
     FOREIGN KEY (maThue) REFERENCES Thue(maThue)
 );
+
 
 CREATE TABLE CTHoaDon (
     maHoaDon VARCHAR(20),
@@ -237,9 +239,9 @@ VALUES
 -- Tài khoản
 INSERT INTO TaiKhoan (maNV, tenDN, matKhau, maChucVu)  
 VALUES 
-    ('NV001', 'trung123', '123!@#', 'CV001'),
-    ('NV002', 'vantrung123', '456$%^', 'CV002'),
-    ('NV003', 'dungminh123', '789&*(', 'CV002'),
+    ('NV001', 'trung123', '123', 'CV001'),
+    ('NV002', 'vantrung123', '456', 'CV002'),
+    ('NV003', 'dungminh123', '789', 'CV002'),
     ('NV004', 'minhquan90', 'quan@123', 'CV002'),
     ('NV005', 'maianh95', 'mai@456', 'CV002'),
     ('NV006', 'hoangnam88', 'nam@789', 'CV002'),
@@ -890,8 +892,335 @@ INSERT INTO Thue (maThue, tenThue, mucThue) VALUES
 ('TH019', N'Thuế thuốc kê đơn', 3.50),
 ('TH020', N'Thuế dịch vụ tư vấn dược', 4.00);
 --HoaDon
+-- HD001
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD001', '2023-01-07', 1103550.00, 'NV001', 'KH001', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD001', 'T044', 2, 'DV001', 446000.00), ('HD001', 'T052', 1, 'DV001', 159000.00);
 
---CTHoaDon
+-- HD002
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD002', '2023-01-14', 1150800.00, 'NV002', 'KH002', 'TH013', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD002', 'T007', 1, 'DV001', 418000.00), ('HD002', 'T016', 2, 'DV001', 339000.00);
+
+-- HD003
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD003', '2023-01-21', 1995000.00, 'NV003', 'KH003', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD003', 'T109', 1, 'DV001', 930000.00), ('HD003', 'T117', 2, 'DV001', 485000.00);
+
+-- HD004
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD004', '2023-01-28', 2025450.00, 'NV004', 'KH004', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD004', 'T073', 1, 'DV001', 765000.00), ('HD004', 'T087', 2, 'DV001', 582000.00);
+
+-- HD005
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD005', '2023-02-04', 1760850.00, 'NV005', 'KH005', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD005', 'T197', 1, 'DV001', 671000.00), ('HD005', 'T205', 2, 'DV001', 503000.00);
+
+-- HD006
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD006', '2023-02-11', 740250.00, 'NV006', 'KH006', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD006', 'T058', 2, 'DV001', 216000.00), ('HD006', 'T064', 1, 'DV001', 273000.00);
+
+-- HD007
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD007', '2023-02-18', 647850.00, 'NV007', 'KH007', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD007', 'T023', 2, 'DV001', 185000.00), ('HD007', 'T028', 1, 'DV001', 247000.00);
+
+-- HD008
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD008', '2023-02-25', 1267347.90, 'NV008', 'KH008', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD008', 'T117', 1, 'DV001', 485000.00), ('HD008', 'T130', 2, 'DV001', 360999.00);
+
+-- HD009
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD009', '2023-03-04', 1369197.90, 'NV009', 'KH009', 'TH013', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD009', 'T087', 1, 'DV001', 582000.00), ('HD009', 'T094', 2, 'DV001', 360999.00);
+
+-- HD010
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD010', '2023-03-11', 1488900.00, 'NV010', 'KH010', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD010', 'T199', 2, 'DV001', 418000.00), ('HD010', 'T209', 1, 'DV001', 582000.00);
+
+-- HD011
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD011', '2023-03-18', 921900.00, 'NV001', 'KH011', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD011', 'T044', 1, 'DV001', 446000.00), ('HD011', 'T058', 2, 'DV001', 216000.00);
+
+-- HD012
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD012', '2023-03-25', 1071150.00, 'NV002', 'KH012', 'TH013', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD012', 'T007', 2, 'DV001', 418000.00), ('HD012', 'T023', 1, 'DV001', 185000.00);
+
+-- HD013
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD013', '2023-10-07', 2332048.95, 'NV003', 'KH013', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD013', 'T109', 2, 'DV001', 930000.00), ('HD013', 'T130', 1, 'DV001', 360999.00);
+
+-- HD014
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD014', '2023-10-14', 1739850.00, 'NV004', 'KH014', 'TH013', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD014', 'T073', 1, 'DV001', 765000.00), ('HD014', 'T105', 2, 'DV001', 446000.00);
+
+-- HD015
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD015', '2023-10-21', 1848000.00, 'NV005', 'KH015', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD015', 'T197', 2, 'DV001', 671000.00), ('HD015', 'T199', 1, 'DV001', 418000.00);
+
+-- HD016
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD016', '2023-10-28', 907200.00, 'NV006', 'KH016', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD016', 'T052', 2, 'DV001', 159000.00), ('HD016', 'T064', 2, 'DV001', 273000.00);
+
+-- HD017
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD017', '2023-11-04', 874650.00, 'NV007', 'KH017', 'TH013', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD017', 'T016', 1, 'DV001', 339000.00), ('HD017', 'T028', 2, 'DV001', 247000.00);
+
+-- HD018
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD018', '2023-11-11', 2385600.00, 'NV008', 'KH018', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD018', 'T109', 1, 'DV001', 930000.00), ('HD018', 'T135', 2, 'DV001', 671000.00);
+
+-- HD019
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD019', '2023-11-18', 1690500.00, 'NV009', 'KH019', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD019', 'T087', 2, 'DV001', 582000.00), ('HD019', 'T105', 1, 'DV001', 446000.00);
+
+-- HD020
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD020', '2023-11-25', 1750350.00, 'NV010', 'KH020', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD020', 'T205', 1, 'DV001', 503000.00), ('HD020', 'T209', 2, 'DV001', 582000.00);
+
+-- HD021
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD021', '2023-12-02', 921900.00, 'NV001', 'KH001', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD021', 'T044', 1, 'DV001', 446000.00), ('HD021', 'T058', 2, 'DV001', 216000.00);
+
+-- HD022
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD022', '2023-12-09', 906150.00, 'NV002', 'KH002', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD022', 'T016', 2, 'DV001', 339000.00), ('HD022', 'T023', 1, 'DV001', 185000.00);
+
+-- HD023
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD023', '2023-12-16', 1397548.95, 'NV003', 'KH021', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD023', 'T117', 2, 'DV001', 485000.00), ('HD023', 'T130', 1, 'DV001', 360999.00);
+
+-- HD024
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD024', '2023-12-23', 1369197.90, 'NV004', 'KH022', 'TH013', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD024', 'T087', 1, 'DV001', 582000.00), ('HD024', 'T094', 2, 'DV001', 360999.00);
+
+-- HD025
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD025', '2023-12-30', 1667400.00, 'NV005', 'KH023', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD025', 'T205', 2, 'DV001', 503000.00), ('HD025', 'T209', 1, 'DV001', 582000.00);
+
+-- HD026
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD026', '2023-01-06', 907200.00, 'NV006', 'KH024', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD026', 'T052', 2, 'DV001', 159000.00), ('HD026', 'T064', 2, 'DV001', 273000.00);
+
+-- HD027
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD027', '2023-01-13', 957600.00, 'NV007', 'KH025', 'TH013', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD027', 'T007', 1, 'DV001', 418000.00), ('HD027', 'T028', 2, 'DV001', 247000.00);
+
+-- HD028
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD028', '2023-01-20', 2385600.00, 'NV008', 'KH026', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD028', 'T109', 1, 'DV001', 930000.00), ('HD028', 'T135', 2, 'DV001', 671000.00);
+
+-- HD029
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD029', '2023-01-27', 1739850.00, 'NV009', 'KH027', 'TH013', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD029', 'T073', 1, 'DV001', 765000.00), ('HD029', 'T105', 2, 'DV001', 446000.00);
+
+-- HD030
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD030', '2023-02-03', 1848000.00, 'NV010', 'KH028', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD030', 'T197', 2, 'DV001', 671000.00), ('HD030', 'T199', 1, 'DV001', 418000.00);
+
+-- HD031
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD031', '2023-02-10', 800100.00, 'NV001', 'KH029', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD031', 'T058', 1, 'DV001', 216000.00), ('HD031', 'T064', 2, 'DV001', 273000.00);
+
+-- HD032
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD032', '2023-02-17', 744450.00, 'NV002', 'KH030', 'TH013', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD032', 'T016', 1, 'DV001', 339000.00), ('HD032', 'T023', 2, 'DV001', 185000.00);
+
+-- HD033
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD033', '2023-02-24', 1267347.90, 'NV003', 'KH031', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD033', 'T117', 1, 'DV001', 485000.00), ('HD033', 'T130', 2, 'DV001', 360999.00);
+
+-- HD034
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD034', '2023-03-03', 1690500.00, 'NV004', 'KH032', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD034', 'T087', 2, 'DV001', 582000.00), ('HD034', 'T105', 1, 'DV001', 446000.00);
+
+-- HD035
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD035', '2023-03-10', 1488900.00, 'NV005', 'KH033', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD035', 'T199', 2, 'DV001', 418000.00), ('HD035', 'T209', 1, 'DV001', 582000.00);
+
+-- HD036
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD036', '2023-03-17', 1103550.00, 'NV006', 'KH034', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD036', 'T044', 2, 'DV001', 446000.00), ('HD036', 'T052', 1, 'DV001', 159000.00);
+
+-- HD037
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD037', '2023-03-24', 1150800.00, 'NV007', 'KH035', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD037', 'T007', 1, 'DV001', 418000.00), ('HD037', 'T016', 2, 'DV001', 339000.00);
+
+-- HD038
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD038', '2023-03-31', 1995000.00, 'NV008', 'KH036', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD038', 'T109', 1, 'DV001', 930000.00), ('HD038', 'T117', 2, 'DV001', 485000.00);
+
+-- HD039
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD039', '2023-10-06', 2025450.00, 'NV009', 'KH037', 'TH013', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD039', 'T073', 1, 'DV001', 765000.00), ('HD039', 'T087', 2, 'DV001', 582000.00);
+
+-- HD040
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD040', '2023-10-13', 1760850.00, 'NV010', 'KH038', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD040', 'T197', 1, 'DV001', 671000.00), ('HD040', 'T205', 2, 'DV001', 503000.00);
+
+-- HD041
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD041', '2023-10-20', 740250.00, 'NV001', 'KH039', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD041', 'T058', 2, 'DV001', 216000.00), ('HD041', 'T064', 1, 'DV001', 273000.00);
+
+-- HD042
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD042', '2023-10-27', 647850.00, 'NV002', 'KH040', 'TH013', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD042', 'T023', 2, 'DV001', 185000.00), ('HD042', 'T028', 1, 'DV001', 247000.00);
+
+-- HD043
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD043', '2023-11-03', 1397548.95, 'NV003', 'KH041', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD043', 'T117', 2, 'DV001', 485000.00), ('HD043', 'T130', 1, 'DV001', 360999.00);
+
+-- HD044
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD044', '2023-11-10', 1369197.90, 'NV004', 'KH042', 'TH013', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD044', 'T087', 1, 'DV001', 582000.00), ('HD044', 'T094', 2, 'DV001', 360999.00);
+
+-- HD045
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD045', '2023-11-17', 1667400.00, 'NV005', 'KH043', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD045', 'T205', 2, 'DV001', 503000.00), ('HD045', 'T209', 1, 'DV001', 582000.00);
+
+-- HD046
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD046', '2023-11-24', 921900.00, 'NV006', 'KH044', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD046', 'T044', 1, 'DV001', 446000.00), ('HD046', 'T058', 2, 'DV001', 216000.00);
+
+-- HD047
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD047', '2023-12-01', 906150.00, 'NV007', 'KH045', 'TH013', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD047', 'T016', 2, 'DV001', 339000.00), ('HD047', 'T023', 1, 'DV001', 185000.00);
+
+-- HD048
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD048', '2023-12-08', 2385600.00, 'NV008', 'KH046', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD048', 'T109', 1, 'DV001', 930000.00), ('HD048', 'T135', 2, 'DV001', 671000.00);
+
+-- HD049
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD049', '2023-12-15', 1739850.00, 'NV009', 'KH047', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD049', 'T073', 1, 'DV001', 765000.00), ('HD049', 'T105', 2, 'DV001', 446000.00);
+
+-- HD050
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD050', '2023-12-22', 1848000.00, 'NV010', 'KH048', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD050', 'T197', 2, 'DV001', 671000.00), ('HD050', 'T199', 1, 'DV001', 418000.00);
+
+-- HD051
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD051', '2023-12-29', 1103550.00, 'NV001', 'KH049', 'TH001', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD051', 'T044', 2, 'DV001', 446000.00), ('HD051', 'T052', 1, 'DV001', 159000.00);
+
+-- HD052
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD052', '2023-01-05', 1150800.00, 'NV002', 'KH050', 'TH013', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD052', 'T007', 1, 'DV001', 418000.00), ('HD052', 'T016', 2, 'DV001', 339000.00);
+
+-- HD053
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD053', '2023-01-12', 1995000.00, 'NV003', 'KH051', 'TH001', N'Chuyển khoản');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD053', 'T109', 1, 'DV001', 930000.00), ('HD053', 'T117', 2, 'DV001', 485000.00);
+
+-- HD054
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD054', '2023-01-19', 2025450.00, 'NV004', 'KH052', 'TH013', N'Quẹt thẻ');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD054', 'T073', 1, 'DV001', 765000.00), ('HD054', 'T087', 2, 'DV001', 582000.00);
+
+-- HD055
+INSERT INTO HoaDon (maHoaDon, ngayLap, tongTien, maNV, maKH, maThue, hinhThucThanhToan) 
+VALUES ('HD055', '2023-01-26', 1760850.00, 'NV005', 'KH053', 'TH001', N'Tiền mặt');
+INSERT INTO CTHoaDon (maHoaDon, maThuoc, soLuong, maDonVi, giaBan) 
+VALUES ('HD055', 'T197', 1, 'DV001', 671000.00), ('HD055', 'T205', 2, 'DV001', 503000.00);
 
 --PhieuDatHang
 
@@ -925,5 +1254,54 @@ INSERT INTO KeThuoc (maKe, tenKe, sucChuaToDa, soLuong) VALUES
 
 
 --CTKeThuoc
-
-
+INSERT INTO CTKeThuoc (maKe, maThuoc, soLuong, maDonVi, maDM, hanSuDung) VALUES
+('KE001', 'T044', 20, 'DV001', 'DM001', '2025-12-31'),
+('KE001', 'T052', 15, 'DV001', 'DM001', '2025-12-31'),
+('KE001', 'T058', 15, 'DV001', 'DM001', '2025-12-31'),
+('KE002', 'T052', 10, 'DV001', 'DM001', '2025-11-30'),
+('KE002', 'T058', 15, 'DV001', 'DM001', '2025-11-30'),
+('KE002', 'T064', 15, 'DV001', 'DM001', '2025-11-30'),
+('KE003', 'T044', 25, 'DV001', 'DM001', '2025-10-31'),
+('KE003', 'T058', 20, 'DV001', 'DM001', '2025-10-31'),
+('KE003', 'T064', 15, 'DV001', 'DM001', '2025-10-31'),
+('KE004', 'T007', 20, 'DV001', 'DM002', '2025-09-30'),
+('KE004', 'T016', 15, 'DV001', 'DM002', '2025-09-30'),
+('KE004', 'T023', 10, 'DV001', 'DM002', '2025-09-30'),
+('KE004', 'T028', 10, 'DV001', 'DM002', '2025-09-30'),
+('KE005', 'T007', 15, 'DV001', 'DM002', '2025-08-31'),
+('KE005', 'T016', 20, 'DV001', 'DM002', '2025-08-31'),
+('KE005', 'T028', 10, 'DV001', 'DM002', '2025-08-31'),
+('KE006', 'T007', 25, 'DV001', 'DM002', '2025-07-31'),
+('KE006', 'T016', 20, 'DV001', 'DM002', '2025-07-31'),
+('KE006', 'T023', 15, 'DV001', 'DM002', '2025-07-31'),
+('KE006', 'T028', 10, 'DV001', 'DM002', '2025-07-31'),
+('KE007', 'T109', 20, 'DV001', 'DM003', '2026-06-30'),
+('KE007', 'T117', 15, 'DV001', 'DM003', '2026-06-30'),
+('KE007', 'T130', 15, 'DV001', 'DM003', '2026-06-30'),
+('KE007', 'T135', 15, 'DV001', 'DM003', '2026-06-30'),
+('KE008', 'T109', 15, 'DV001', 'DM003', '2026-05-31'),
+('KE008', 'T117', 10, 'DV001', 'DM003', '2026-05-31'),
+('KE008', 'T130', 10, 'DV001', 'DM003', '2026-05-31'),
+('KE009', 'T117', 10, 'DV001', 'DM003', '2026-04-30'),
+('KE009', 'T130', 5, 'DV001', 'DM003', '2026-04-30'),
+('KE009', 'T135', 5, 'DV001', 'DM003', '2026-04-30'),
+('KE010', 'T073', 10, 'DV001', 'DM004', '2026-03-31'),
+('KE010', 'T087', 10, 'DV001', 'DM004', '2026-03-31'),
+('KE010', 'T094', 5, 'DV001', 'DM004', '2026-03-31'),
+('KE011', 'T073', 25, 'DV001', 'DM004', '2026-02-28'),
+('KE011', 'T087', 20, 'DV001', 'DM004', '2026-02-28'),
+('KE011', 'T094', 15, 'DV001', 'DM004', '2026-02-28'),
+('KE011', 'T105', 20, 'DV001', 'DM004', '2026-02-28'),
+('KE012', 'T087', 20, 'DV001', 'DM004', '2026-01-31'),
+('KE012', 'T094', 15, 'DV001', 'DM004', '2026-01-31'),
+('KE012', 'T105', 15, 'DV001', 'DM004', '2026-01-31'),
+('KE013', 'T197', 25, 'DV001', 'DM005', '2026-12-31'),
+('KE013', 'T199', 20, 'DV001', 'DM005', '2026-12-31'),
+('KE013', 'T205', 25, 'DV001', 'DM005', '2026-12-31'),
+('KE013', 'T209', 20, 'DV001', 'DM005', '2026-12-31'),
+('KE014', 'T197', 10, 'DV001', 'DM005', '2026-11-30'),
+('KE014', 'T205', 10, 'DV001', 'DM005', '2026-11-30'),
+('KE014', 'T209', 10, 'DV001', 'DM005', '2026-11-30'),
+('KE015', 'T197', 20, 'DV001', 'DM005', '2026-10-31'),
+('KE015', 'T199', 15, 'DV001', 'DM005', '2026-10-31'),
+('KE015', 'T205', 25, 'DV001', 'DM005', '2026-10-31');

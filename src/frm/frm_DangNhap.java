@@ -28,6 +28,7 @@ import javax.swing.SwingConstants;
 
 import hieuUng.GradientPanel;
 import hieuUng.ImageResizer;
+import hieuUng.doiThuoc;
 import hieuUng.nutBam;
 
 import javax.swing.JTextField;
@@ -421,8 +422,10 @@ public class frm_DangNhap extends JFrame implements ActionListener, MouseListene
 
 	
 	public void login() {
-	    String userName = textField.getText();
-	    String pass = new String(textField_1.getPassword());
+//	    String userName = textField.getText();
+//	    String pass = new String(textField_1.getPassword());
+		String userName = "trung123";
+				 String pass = "123";
 	    try {
 	        ent_taiKhoan tk = listTK.getTaiKhoanByUserName(userName);
 	        if (tk != null && tk.getMatKhau().equals(pass)) {
@@ -432,6 +435,8 @@ public class frm_DangNhap extends JFrame implements ActionListener, MouseListene
 	            frm_default_timKiem.maTK_DaDangNhap = tk.getMaTK();
 	            frm_default_ThongKe.maTK_DaDangNhap = tk.getMaTK();
 	            frm_home.maTK_DaDangNhap = tk.getChucVu();
+	           doiThuoc.maTaiKhoanDangNhap = tk.getMaTK();
+	           frm_DoiThuoc.maTaiKhoanDangNhap = tk.getMaTK();
 	            new frm_home(); 
 	            this.dispose();
 	        } else {

@@ -1,18 +1,22 @@
 package frm;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import dao.dao_KeThuoc;
 import entity.ent_KeThuoc;
 import frm_default.frm_default2;
 import hieuUng.ImageResizer;
 import hieuUng.XuatExcel;
+import hieuUng.menu;
 
 public class frm_keThuoc extends frm_default2 {
 
@@ -42,6 +46,8 @@ public class frm_keThuoc extends frm_default2 {
 		btnThem.addActionListener(this);
 		btnSua.addActionListener(this);
 		btnXuat.addActionListener(this);
+		
+		
 	}
 
 	public static void main(String[] args) {
@@ -68,7 +74,7 @@ public class frm_keThuoc extends frm_default2 {
 		} else if (o.equals(btnXem)) {
 			int row = table.getSelectedRow();
 			if (row != -1) {
-				String maKe = table.getValueAt(row, 1).toString();
+				String maKe = table.getValueAt(row, 0).toString();
 				frm_ChiTiecKeThuoc.maKe_Chon = maKe;
 				this.dispose();
 				new frm_ChiTiecKeThuoc();

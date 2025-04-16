@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class dao_thuoc {
 
-    public ArrayList<ent_thuoc> getAllThuoc() {
+    public static ArrayList<ent_thuoc> getAllThuoc() {
         ArrayList<ent_thuoc> list = new ArrayList<>();
         String sql = "SELECT t.maThuoc, t.tenThuoc, dv.tenDV AS tenDonVi, dm.tenDM AS tenDanhMuc, ncc.tenNCC, " +
                      "t.hanSuDung, t.giaNhap, t.giaBan, t.xuatXu " +
