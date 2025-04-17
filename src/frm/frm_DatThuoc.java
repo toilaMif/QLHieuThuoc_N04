@@ -46,7 +46,7 @@ import hieuUng.ImageResizer;
 import hieuUng.datThuoc;
 
 public class frm_DatThuoc extends frm_default implements ActionListener, MouseListener {
-	private HoaDon hoaDon;
+//	private HoaDon hoaDon;
 	private JButton jbtnInHoaDon;
 	private JButton jbtnXoaRong;
 	private GradientPanel painKhungDieuKhien;
@@ -75,6 +75,8 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 	private JButton xacnhanDondat;
 	private JButton xoarongDondat;
 	private JPanel 		penlNut;
+	private JTextField jtfHoTen;
+	private JLabel jlbHoTen;
 
 	public frm_DatThuoc() {
 		super();
@@ -232,9 +234,9 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		khachHang.add(lblKhachHang, BorderLayout.NORTH);
 
 		
-		JLabel jlbHoTen = new JLabel("Họ tên:");
+		jlbHoTen = new JLabel("Họ tên:");
 		jlbHoTen.setBounds(10, 40, 100, 20);
-		JTextField jtfHoTen = new JTextField();
+		jtfHoTen = new JTextField();
 		jtfHoTen.setBounds(110, 40, 300, 30);
 		
 		JLabel jlbSDT = new JLabel("SĐT:");
@@ -289,7 +291,7 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		// Mã đơn
 		JLabel jlbMaDon = new JLabel("Mã đơn:");
 		jlbMaDon.setBounds(10, 40, 100, 20);
-		JTextField jtfMaDon = new JTextField();
+		jtfMaDon = new JTextField();
 		jtfMaDon.setBounds(110, 40, 300, 30);
 
 		// Ngày đặt
@@ -331,6 +333,7 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		xoarongDondat.setBounds(415, 80, 90, 30);
 		xoarongDondat.setBackground(Color.red);
 		xoarongDondat.setForeground(Color.WHITE);
+		xacnhanDondat.addActionListener(this);
 		
 		penlNut.add(xacnhanDondat);
 		
@@ -351,31 +354,32 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 	}
 
 	private void HienThiSPBAN() {
-		panelContainer.removeAll();
-		for (ent_thuoc thuoc : danhSachThuoc) {
-			JPanel panelThuoc = new JPanel();
-			panelThuoc.setPreferredSize(new Dimension(150, 200));
-			panelThuoc.setLayout(new BorderLayout());
-			panelThuoc.setName(thuoc.getMaThuoc());
-
-			JLabel lblMaThuoc = new JLabel(thuoc.getMaThuoc(), JLabel.CENTER);
-			panelThuoc.add(lblMaThuoc, BorderLayout.NORTH);
-
-			JLabel lblHinhAnh = new JLabel();
-			anh = ImageResizer.resizeImage("/img_thuoc/" + thuoc.getMaThuoc() + ".png", 150, 150);
-
-			lblHinhAnh.setIcon(anh);
-			panelThuoc.add(lblHinhAnh, BorderLayout.CENTER);
-
-			JLabel lblTenThuoc = new JLabel(thuoc.getTenThuoc());
-			panelThuoc.add(lblTenThuoc, BorderLayout.SOUTH);
-
-			panelThuoc.setBorder(BorderFactory.createLineBorder(new Color(180, 220, 85)));
-			panelThuoc.addMouseListener(this);
-			panelContainer.add(panelThuoc);
-		}
-		panelContainer.revalidate();
-		panelContainer.repaint();
+//		panelContainer.removeAll();
+//		for (ent_thuoc thuoc : danhSachThuoc) {
+//			JPanel panelThuoc = new JPanel();
+//			panelThuoc.setPreferredSize(new Dimension(150, 200));
+//			panelThuoc.setLayout(new BorderLayout());
+//			panelThuoc.setName(thuoc.getMaThuoc());
+//
+//			JLabel lblMaThuoc = new JLabel(thuoc.getMaThuoc(), JLabel.CENTER);
+//			panelThuoc.add(lblMaThuoc, BorderLayout.NORTH);
+//
+//			JLabel lblHinhAnh = new JLabel();
+//			anh = ImageResizer.resizeImage("/img_thuoc/" + thuoc.getMaThuoc() + ".png", 150, 150);
+//
+//			lblHinhAnh.setIcon(anh);
+//			panelThuoc.add(lblHinhAnh, BorderLayout.CENTER);
+//
+//			JLabel lblTenThuoc = new JLabel(thuoc.getTenThuoc());
+//			panelThuoc.add(lblTenThuoc, BorderLayout.SOUTH);
+//
+//			panelThuoc.setBorder(BorderFactory.createLineBorder(new Color(180, 220, 85)));
+//			panelThuoc.addMouseListener(this);
+//			panelContainer.add(panelThuoc);
+//		}
+//		panelContainer.revalidate();
+//		panelContainer.repaint();
+		hienThiThuoc(danhSachThuoc);
 	}
 
 	@Override
@@ -385,12 +389,68 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		if (o.equals(jbtThoat)) {
 			this.dispose();
 			new frm_home();
+		}else if(o.equals(xacnhanDondat)) {
+			String tenBN = jtfHoTen.getText();
+			String maHD = jtfMaDon.getText();
+			donDat.capNhatThongTinBenhNhan(tenBN,maHD);
+			
 		}
+	}
+	private void hienThiThuoc(ArrayList<ent_thuoc> danhSach) {
+	    panelContainer.removeAll();
+	    for (ent_thuoc thuoc : danhSach) {
+	        JPanel panelThuoc = new JPanel();
+	        panelThuoc.setPreferredSize(new Dimension(150, 200));
+	        panelThuoc.setLayout(new BorderLayout());
+	        panelThuoc.setName(thuoc.getMaThuoc());
+
+	        JLabel lblMaThuoc = new JLabel(thuoc.getMaThuoc(), JLabel.CENTER);
+	        panelThuoc.add(lblMaThuoc, BorderLayout.NORTH);
+
+	        JLabel lblHinhAnh = new JLabel();
+	        ImageIcon icon = ImageResizer.resizeImage("/img_thuoc/" + thuoc.getMaThuoc() + ".png", 150, 150);
+	        lblHinhAnh.setIcon(icon);
+	        panelThuoc.add(lblHinhAnh, BorderLayout.CENTER);
+
+	        JLabel lblTenThuoc = new JLabel(thuoc.getTenThuoc(), JLabel.CENTER);
+	        panelThuoc.add(lblTenThuoc, BorderLayout.SOUTH);
+
+	        panelThuoc.setBorder(BorderFactory.createLineBorder(new Color(180, 220, 85)));
+	        panelThuoc.addMouseListener(this);
+
+	        panelContainer.add(panelThuoc);
+	    }
+
+	    panelContainer.revalidate();
+	    panelContainer.repaint();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		JPanel clickedPanel = (JPanel) e.getSource();
+	    String maThuoc = clickedPanel.getName();
 
+	    ent_thuoc thuoc = danhSachThuoc.stream()
+	        .filter(t -> t.getMaThuoc().equals(maThuoc))
+	        .findFirst()
+	        .orElse(null);
+
+	    if (thuoc != null) {
+	        // Có thể hiển thị dialog chọn số lượng
+	        String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng:", "Chọn số lượng", JOptionPane.PLAIN_MESSAGE);
+	        if (soLuongStr != null) {
+	            try {
+	                int soLuong = Integer.parseInt(soLuongStr.trim());
+	                if (soLuong > 0) {
+	                	donDat.addThuocToTable(thuoc, soLuong);
+	                } else {
+	                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0");
+	                }
+	            } catch (NumberFormatException ex) {
+	                JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ");
+	            }
+	        }
+	   }
 	}
 
 	@Override

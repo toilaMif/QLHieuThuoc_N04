@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.JDateChooser;
+//import com.toedter.calendar.JDateChooser;
 
 import dao.dao_thuoc;
 import entity.ent_thuoc;
@@ -44,6 +44,10 @@ public class frm_LapHoaDon extends frm_default implements ActionListener, MouseL
 	private GradientPanel painKhungDieuKhien;
 	private GradientPanel bangSP;
 	private JPanel panelContainer;
+	private JButton btnTimKiem;
+	private JTextField txtMaThuoc;
+	private JTextField txtTenThuoc;
+	private JButton btnXoaRongTim;
 	private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
 	private dao_thuoc thuocDAO;
@@ -82,7 +86,7 @@ public class frm_LapHoaDon extends frm_default implements ActionListener, MouseL
 		jbtnXoaRong = new JButton("❌ Xóa Rỗng");
 		jbtnXoaRong.setBackground(Color.RED);
 		jbtnXoaRong.setForeground(Color.WHITE);
-		jbtnXoaRong.setFont(new Font("", Font.BOLD, 14));
+		jbtnXoaRong.setFont(new Font("Arial", Font.BOLD, 14));
 		jbtnXoaRong.setBounds(180, 690, 120, 45);
 		jbtnXoaRong.setFocusPainted(false);
 		jbtnXoaRong.setContentAreaFilled(false);
@@ -109,14 +113,14 @@ public class frm_LapHoaDon extends frm_default implements ActionListener, MouseL
 		JPanel panelMaThuoc = new JPanel(new BorderLayout(5, 5));
 		panelMaThuoc.setBackground(Color.white);
 		JLabel lblMaThuoc = new JLabel("Mã Thuốc");
-		JTextField txtMaThuoc = new JTextField();
+		txtMaThuoc = new JTextField();
 		panelMaThuoc.add(lblMaThuoc, BorderLayout.NORTH);
 		panelMaThuoc.add(txtMaThuoc, BorderLayout.CENTER);
 
 		JPanel panelTenThuoc = new JPanel(new BorderLayout(5, 5));
 		panelTenThuoc.setBackground(Color.white);
 		JLabel lblTenThuoc = new JLabel("Tên Thuốc");
-		JTextField txtTenThuoc = new JTextField();
+		txtTenThuoc = new JTextField();
 		panelTenThuoc.add(lblTenThuoc, BorderLayout.NORTH);
 		panelTenThuoc.add(txtTenThuoc, BorderLayout.CENTER);
 
@@ -131,11 +135,12 @@ public class frm_LapHoaDon extends frm_default implements ActionListener, MouseL
 		JPanel panelButton = new JPanel(new BorderLayout(5, 5));
 		panelButton.setBackground(Color.white);
 		JLabel lblDummy = new JLabel("Nút chức năng:");
-		JButton btnTimKiem = new JButton("Tìm Kiếm");
+		btnTimKiem = new JButton("Tìm Kiếm");
 		btnTimKiem.setBackground(new Color(101, 86, 255));
 		btnTimKiem.setForeground(Color.WHITE);
+		btnTimKiem.addActionListener(this);
 
-		JButton btnXoaRongTim = new JButton("Xóa Rỗng");
+		btnXoaRongTim = new JButton("Xóa Rỗng");
 		btnXoaRongTim.setBackground(Color.RED);
 		btnXoaRongTim.setForeground(Color.WHITE);
 		btnXoaRongTim.addActionListener(e -> {
@@ -186,31 +191,60 @@ public class frm_LapHoaDon extends frm_default implements ActionListener, MouseL
 	}
 
 	private void HienThiSPBAN() {
-		panelContainer.removeAll();
-		for (ent_thuoc thuoc : danhSachThuoc) {
-			JPanel panelThuoc = new JPanel();
-			panelThuoc.setPreferredSize(new Dimension(150, 200));
-			panelThuoc.setLayout(new BorderLayout());
-			panelThuoc.setName(thuoc.getMaThuoc());
+//		panelContainer.removeAll();
+//		for (ent_thuoc thuoc : danhSachThuoc) {
+//			JPanel panelThuoc = new JPanel();
+//			panelThuoc.setPreferredSize(new Dimension(150, 200));
+//			panelThuoc.setLayout(new BorderLayout());
+//			panelThuoc.setName(thuoc.getMaThuoc());
+//
+//			JLabel lblMaThuoc = new JLabel(thuoc.getMaThuoc(), JLabel.CENTER);
+//			panelThuoc.add(lblMaThuoc, BorderLayout.NORTH);
+//
+//			JLabel lblHinhAnh = new JLabel();
+//			anh = ImageResizer.resizeImage("/img_thuoc/" + thuoc.getMaThuoc() + ".png", 150, 150);
+//
+//			lblHinhAnh.setIcon(anh);
+//			panelThuoc.add(lblHinhAnh, BorderLayout.CENTER);
+//
+//			JLabel lblTenThuoc = new JLabel(thuoc.getTenThuoc());
+//			panelThuoc.add(lblTenThuoc, BorderLayout.SOUTH);
+//
+//			panelThuoc.setBorder(BorderFactory.createLineBorder(new Color(180, 220, 85)));
+//			panelThuoc.addMouseListener(this);
+//			panelContainer.add(panelThuoc);
+//		}
+//		panelContainer.revalidate();
+//		panelContainer.repaint();
+		hienThiThuoc(danhSachThuoc);
+	}
+	private void hienThiThuoc(ArrayList<ent_thuoc> danhSach) {
+	    panelContainer.removeAll();
+	    for (ent_thuoc thuoc : danhSach) {
+	        JPanel panelThuoc = new JPanel();
+	        panelThuoc.setPreferredSize(new Dimension(150, 200));
+	        panelThuoc.setLayout(new BorderLayout());
+	        panelThuoc.setName(thuoc.getMaThuoc());
 
-			JLabel lblMaThuoc = new JLabel(thuoc.getMaThuoc(), JLabel.CENTER);
-			panelThuoc.add(lblMaThuoc, BorderLayout.NORTH);
+	        JLabel lblMaThuoc = new JLabel(thuoc.getMaThuoc(), JLabel.CENTER);
+	        panelThuoc.add(lblMaThuoc, BorderLayout.NORTH);
 
-			JLabel lblHinhAnh = new JLabel();
-			anh = ImageResizer.resizeImage("/img_thuoc/" + thuoc.getMaThuoc() + ".png", 150, 150);
+	        JLabel lblHinhAnh = new JLabel();
+	        ImageIcon icon = ImageResizer.resizeImage("/img_thuoc/" + thuoc.getMaThuoc() + ".png", 150, 150);
+	        lblHinhAnh.setIcon(icon);
+	        panelThuoc.add(lblHinhAnh, BorderLayout.CENTER);
 
-			lblHinhAnh.setIcon(anh);
-			panelThuoc.add(lblHinhAnh, BorderLayout.CENTER);
+	        JLabel lblTenThuoc = new JLabel(thuoc.getTenThuoc(), JLabel.CENTER);
+	        panelThuoc.add(lblTenThuoc, BorderLayout.SOUTH);
 
-			JLabel lblTenThuoc = new JLabel(thuoc.getTenThuoc());
-			panelThuoc.add(lblTenThuoc, BorderLayout.SOUTH);
+	        panelThuoc.setBorder(BorderFactory.createLineBorder(new Color(180, 220, 85)));
+	        panelThuoc.addMouseListener(this);
 
-			panelThuoc.setBorder(BorderFactory.createLineBorder(new Color(180, 220, 85)));
-			panelThuoc.addMouseListener(this);
-			panelContainer.add(panelThuoc);
-		}
-		panelContainer.revalidate();
-		panelContainer.repaint();
+	        panelContainer.add(panelThuoc);
+	    }
+
+	    panelContainer.revalidate();
+	    panelContainer.repaint();
 	}
 
 
@@ -222,12 +256,54 @@ public class frm_LapHoaDon extends frm_default implements ActionListener, MouseL
         if(o.equals(jbtThoat)) {
         	this.dispose();
         	new frm_home();
+        }else if(o.equals(btnTimKiem)) {
+        	String maThuocSearch = txtMaThuoc.getText().trim().toLowerCase();
+        	String tenThuocSearch = txtTenThuoc.getText().trim().toLowerCase();
+        	ArrayList<ent_thuoc> filteredList = new ArrayList<>();
+        	for (ent_thuoc thuoc : danhSachThuoc) {
+        	    boolean matchMa = thuoc.getMaThuoc().toLowerCase().contains(maThuocSearch);
+        	    boolean matchTen = thuoc.getTenThuoc().toLowerCase().contains(tenThuocSearch);
+        	    
+        	    if ((maThuocSearch.isEmpty() || matchMa) && (tenThuocSearch.isEmpty() || matchTen)) {
+        	        filteredList.add(thuoc);
+        	    }
+        	}
+        	if (filteredList.isEmpty()) {
+        	    JOptionPane.showMessageDialog(this, "Không tìm thấy thuốc phù hợp!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        	} else {
+        	    hienThiThuoc(filteredList);
+        	}
+
+            
         }
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		 JPanel clickedPanel = (JPanel) e.getSource();
+		    String maThuoc = clickedPanel.getName();
 
+		    ent_thuoc thuoc = danhSachThuoc.stream()
+		        .filter(t -> t.getMaThuoc().equals(maThuoc))
+		        .findFirst()
+		        .orElse(null);
+
+		    if (thuoc != null) {
+		        // Có thể hiển thị dialog chọn số lượng
+		        String soLuongStr = JOptionPane.showInputDialog(this, "Nhập số lượng:", "Chọn số lượng", JOptionPane.PLAIN_MESSAGE);
+		        if (soLuongStr != null) {
+		            try {
+		                int soLuong = Integer.parseInt(soLuongStr.trim());
+		                if (soLuong > 0) {
+		                    hoaDon.addThuocToTable(thuoc, soLuong);
+		                } else {
+		                    JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0");
+		                }
+		            } catch (NumberFormatException ex) {
+		                JOptionPane.showMessageDialog(this, "Số lượng không hợp lệ");
+		            }
+		        }
+		   }
 	}
 
 	@Override

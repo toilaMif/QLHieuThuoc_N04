@@ -4,12 +4,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+
+import entity.ent_thuoc;
+
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HoaDon extends GradientPanel {
 
     private JLabel lblNewLabel_6;
-
+    private JTable table;
+    private DefaultTableModel model;
+    private JLabel lblNewLabel_2;
 
 	public HoaDon() {
     	
@@ -34,6 +42,7 @@ public class HoaDon extends GradientPanel {
         lblSubTitle.setFont(new Font("Arial", Font.PLAIN, 10));
         panel.add(lblSubTitle, BorderLayout.CENTER);
 
+        
         JLabel lblSeparator = new JLabel("<html><hr style='width:150px; border: 2px solid black;'></html>", JLabel.CENTER);
         panel.add(lblSeparator, BorderLayout.SOUTH);
 
@@ -49,36 +58,36 @@ public class HoaDon extends GradientPanel {
 
         String[] columnNames = {"Tên Thuốc", "SL", "Đơn vị", "Đơn giá", "T.Tiền"};
         Object[][] data = {
-                {"Paracetamol", "10", "Viên", "2000", "20000"},
-                {"Ibuprofen", "5", "Viên", "3000", "15000"},
-                {"Amoxicillin", "8", "Viên", "5000", "40000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"},
-                {"Vitamin C", "12", "Viên", "1500", "18000"}
+//                {"Paracetamol", "10", "Viên", "2000", "20000"},
+//                {"Ibuprofen", "5", "Viên", "3000", "15000"},
+//                {"Amoxicillin", "8", "Viên", "5000", "40000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"},
+//                {"Vitamin C", "12", "Viên", "1500", "18000"}
         };
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        JTable table = new JTable(model) {
+        model = new DefaultTableModel(data, columnNames);
+        table = new JTable(model) {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component c = super.prepareRenderer(renderer, row, column);
@@ -128,7 +137,15 @@ public class HoaDon extends GradientPanel {
         lblDonThuoc.setBackground(new Color(255, 255, 255));
         panel_1.add(lblDonThuoc, BorderLayout.NORTH);
         lblDonThuoc.setFont(new Font("Arial", Font.BOLD, 20));
-        JLabel lblInfo = new JLabel("<html>Mã NV: " + maNV + "<br>Ngày lập: 21/03/2025 - Giờ lập: 1:45:40<br>Dược sĩ: Thái Văn Trung<br>Bệnh nhân: Phạm Viết Dũng Minh</html>");
+        
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String currentDate = now.format(dateFormatter);
+        String currentTime = now.format(timeFormatter);
+        JLabel lblInfo = new JLabel("<html>Mã NV: " + maNV + 
+        	    "<br>Ngày lập: " + currentDate + " - Giờ lập: " + currentTime +
+        	    "<br>Dược sĩ: Thái Văn Trung<br>Bệnh nhân: Phạm Viết Dũng Minh</html>");
         lblInfo.setBackground(new Color(255, 255, 255));
         panel_1.add(lblInfo, BorderLayout.WEST);
         lblInfo.setFont(new Font("Arial", Font.ITALIC, 9));
@@ -161,7 +178,7 @@ public class HoaDon extends GradientPanel {
         lblNewLabel_1.setFont(new Font("Arial", Font.ITALIC, 9));
         panel_4.add(lblNewLabel_1, BorderLayout.WEST);
 
-        JLabel lblNewLabel_2 = new JLabel("10,000      ");
+        lblNewLabel_2 = new JLabel("10,000");
         lblNewLabel_2.setFont(new Font("Arial", Font.ITALIC, 9));
         panel_4.add(lblNewLabel_2, BorderLayout.EAST);
         
@@ -212,25 +229,57 @@ public class HoaDon extends GradientPanel {
 
     }
 
+	public void addThuocToTable(ent_thuoc thuoc, int soLuong) {
+		String tenThuoc = thuoc.getTenThuoc();
+	    String donVi = thuoc.getTenDonVi();
+	    double donGia = thuoc.getGiaBan();
+	    double thanhTien = donGia * soLuong;
+
+	    // Định dạng tiền tệ: 600000 -> 600.000đ
+	    DecimalFormat formatter = new DecimalFormat("#,###");
+	    String formattedDonGia = formatter.format(donGia) + "đ";
+	    String formattedThanhTien = formatter.format(thanhTien) + "đ";
+
+	    model.addRow(new Object[]{
+	        tenThuoc,
+	        String.valueOf(soLuong),
+	        donVi,
+	        formattedDonGia,
+	        formattedThanhTien
+	    });
+
+	    updateTotalAmount(table);
+	}
     // Hàm tính tổng tiền từ bảng
-    private void updateTotalAmount(JTable table) {
-        double total = 0;
-        int lastColumnIndex = table.getColumnCount() - 1; // Cột cuối là "Thành tiền"
+	private void updateTotalAmount(JTable table) {
+	    double total = 0;
+	    int lastColumnIndex = table.getColumnCount() - 1;
+	    double vat = 0;
+	    for (int i = 0; i < table.getRowCount(); i++) {
+	        Object value = table.getValueAt(i, lastColumnIndex);
+	        if (value != null) {
+	            try {
+	                // Xóa "đ", dấu phẩy và dấu chấm
+	                String text = value.toString()
+	                                   .replace("đ", "")
+	                                   .replace(".", "")
+	                                   .replace(",", "")
+	                                   .trim();
+	                total += Double.parseDouble(text);
+	                
+	            } catch (NumberFormatException e) {
+	                System.err.println("Lỗi chuyển đổi số: " + value);
+	            }
+	        }
+	    }
+	    vat = total / 100 * 10;
 
-        for (int i = 0; i < table.getRowCount(); i++) {
-            Object value = table.getValueAt(i, lastColumnIndex);
-            if (value != null) {
-                try {
-                    total += Double.parseDouble(value.toString().replace(",", ""));
-                } catch (NumberFormatException e) {
-                    System.err.println("Lỗi chuyển đổi số: " + value);
-                }
-            }
-        }
+	    DecimalFormat formatter = new DecimalFormat("#,###");
+	    lblNewLabel_6.setText(formatter.format(total - vat) + "đ     ");
+	    lblNewLabel_2.setText(formatter.format(vat) + "đ     ");
+	}
 
-        lblNewLabel_6.setText(String.format("%,.0f     ", total));
 
-    }
     
 
     public static void main(String[] args) {
