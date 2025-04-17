@@ -22,7 +22,8 @@ public class datThuoc extends GradientPanel {
     private JLabel lblInfo;
     private JLabel lblNewLabel_7;
     private JLabel lblNewLabel_8;
-	public datThuoc() {
+    public GradientPanel panel; 
+    public datThuoc() {
     	
     	
     	setGradientColors(Color.WHITE,Color.WHITE);
@@ -30,7 +31,7 @@ public class datThuoc extends GradientPanel {
         setLayout(new BorderLayout());
 //        setBorder(BorderFactory.createLineBorder(new Color(0x013034), 10));
 
-        GradientPanel panel = new GradientPanel();
+        panel = new GradientPanel();
          panel.setCornerRadius(30);
         ((GradientPanel) panel).setGradientColors(Color.WHITE,Color.WHITE);
         panel.setLayout(new BorderLayout());

@@ -5,12 +5,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -448,7 +454,88 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
             cbTrangThai.setSelectedIndex(0);
             HienThiSPBAN();
         }
+        else if (o == jbtnInHoaDon) {
+            printPanel(donDat); // hoặc khachHang hoặc bất kỳ panel nào bạn muốn in
+        }
 	}
+
+	private void printPanel(JPanel panelToPrint) {
+	    PrinterJob job = PrinterJob.getPrinterJob();
+	    job.setJobName("In Hóa Đơn");
+
+	    job.setPrintable(new Printable() {
+	        @Override
+	        public int print(Graphics g, PageFormat pf, int pageIndex) throws PrinterException {
+	            if (pageIndex > 0) {
+	                return NO_SUCH_PAGE;
+	            }
+
+	            Graphics2D g2d = (Graphics2D) g;
+
+	            // Lấy kích thước vùng in của trang
+	            double printableX = pf.getImageableX();
+	            double printableY = pf.getImageableY();
+	            double printableWidth = pf.getImageableWidth();
+	            double printableHeight = pf.getImageableHeight();
+
+	            // Kích thước JPanel cần in
+	            int panelWidth = panelToPrint.getWidth();
+	            int panelHeight = panelToPrint.getHeight();
+
+	            // Tính tỷ lệ scale để vừa trang
+	            double scaleX = printableWidth / panelWidth;
+	            double scaleY = printableHeight / panelHeight;
+	            double scale = Math.min(scaleX, scaleY); // Giữ tỉ lệ
+
+	            // Căn giữa
+	            double offsetX = printableX + (printableWidth - (panelWidth * scale)) / 2;
+	            double offsetY = printableY + (printableHeight - (panelHeight * scale)) / 2;
+
+	            // Áp dụng dịch chuyển và co giãn
+	            g2d.translate(offsetX, offsetY);
+	            g2d.scale(scale, scale);
+
+	            // In JPanel
+	            panelToPrint.printAll(g2d);
+
+	            return PAGE_EXISTS;
+	        }
+	    });
+
+	    // Hiển thị hộp thoại chọn máy in
+	    boolean doPrint = job.printDialog();
+	    if (doPrint) {
+	        try {
+	            job.print();
+	        } catch (PrinterException ex) {
+	            ex.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "In thất bại: " + ex.getMessage());
+	        }
+	    }
+	}
+
+	class PrintablePanel implements Printable {
+	    private JPanel panel;
+
+	    public PrintablePanel(JPanel panel) {
+	        this.panel = panel;
+	    }
+
+	    @Override
+	    public int print(Graphics g, PageFormat pf, int pageIndex) throws PrinterException {
+	        if (pageIndex > 0) {
+	            return NO_SUCH_PAGE;
+	        }
+	        Graphics2D g2d = (Graphics2D) g;
+	        g2d.translate(pf.getImageableX(), pf.getImageableY());
+	        panel.printAll(g2d);
+	        return PAGE_EXISTS;
+	    }
+	}
+	
+
+	
+	
 	private void hienThiThuoc(ArrayList<ent_thuoc> danhSach) {
 	    panelContainer.removeAll();
 	    for (ent_thuoc thuoc : danhSach) {
