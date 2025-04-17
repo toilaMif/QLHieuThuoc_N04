@@ -365,6 +365,7 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		btnTimKiem.addActionListener(this);
 		btnXoaRongTim.addActionListener(this);
 		xoarongDondat.addActionListener(this);
+		jbtnXoaRong.addActionListener(this);
 		
 		
 		setVisible(true);
@@ -444,7 +445,7 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
         }else if(o.equals(btnXoaRongTim)) {
         	txtMaThuoc.setText("");
         	txtTenThuoc.setText("");
-        	
+        	hienThiThuoc(thuocDAO.getAllThuoc());
         }else if(o.equals(xoarongDondat)){
         	jtfHoTen.setText("");
             jtfSDT.setText("");
@@ -456,6 +457,12 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
         }
         else if (o == jbtnInHoaDon) {
             printPanel(donDat); // hoặc khachHang hoặc bất kỳ panel nào bạn muốn in
+        }else if(o.equals(jbtnXoaRong)) {
+        	donDat = new datThuoc();
+    		donDat.setCornerRadius(50);
+    		donDat.setBounds(20, 125, 310, 550);
+    		donDat.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+    		jpWest.add(donDat, BorderLayout.CENTER);
         }
 	}
 
@@ -531,6 +538,7 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 	        panel.printAll(g2d);
 	        return PAGE_EXISTS;
 	    }
+	    
 	}
 	
 

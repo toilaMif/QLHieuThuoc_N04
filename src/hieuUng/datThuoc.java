@@ -22,6 +22,7 @@ public class datThuoc extends GradientPanel {
     private JLabel lblInfo;
     private JLabel lblNewLabel_7;
     private JLabel lblNewLabel_8;
+    private JLabel lblNewLabel_9;
     public GradientPanel panel; 
     public datThuoc() {
     	
@@ -238,9 +239,9 @@ public class datThuoc extends GradientPanel {
 
         JLabel lblNewLabel_5 = new JLabel("<html><hr style='width:1000px;border:2px dashed black;'></html>");
         panel_5.add(lblNewLabel_5);
-        JLabel lblNewLabel_8 = new JLabel("<html><center>Cảm ơn quý khách!<br>Phạm Viết Dũng Minh</center></html>", JLabel.CENTER);
-        lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 20));
-        panel_5.add(lblNewLabel_8);
+        lblNewLabel_9 = new JLabel("<html><center>Cảm ơn quý khách!<br></center></html>", JLabel.CENTER);
+        lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 20));
+        panel_5.add(lblNewLabel_9);
         
         
 
@@ -294,7 +295,7 @@ public class datThuoc extends GradientPanel {
 	    vat = total / 100 * 10;
 
 	    DecimalFormat formatter = new DecimalFormat("#,###");
-	    lblNewLabel_6.setText(formatter.format(total - vat) + "đ     ");
+	    lblNewLabel_6.setText(formatter.format(total + vat) + "đ     ");
 	    lblNewLabel_2.setText(formatter.format(vat) + "đ     ");
 
     }
@@ -315,6 +316,7 @@ public class datThuoc extends GradientPanel {
         
         lblNewLabel_7.setText(maHoaDon+"    ");
         lblNewLabel_8.setText(noiGiao+"      ");
+        lblNewLabel_9.setText("<html><center>Cảm ơn quý khách!<br>"+tenBenhNhan+"</center></html>");
     }
     
 
