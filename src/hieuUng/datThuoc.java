@@ -223,7 +223,7 @@ public class datThuoc extends GradientPanel {
         lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 14));
         panel_3.add(lblNewLabel_6);
 
-        lblNewLabel_8 = new JLabel("125/37 An Phú Đông 13 Quận 12 ABC      ", JLabel.RIGHT);
+        lblNewLabel_8 = new JLabel("", JLabel.RIGHT);
         lblNewLabel_8.setFont(new Font("Arial", Font.ITALIC, 10));
         panel_3.add(lblNewLabel_8);
 
@@ -298,7 +298,7 @@ public class datThuoc extends GradientPanel {
 
     }
     
-    public void capNhatThongTinBenhNhan(String tenBenhNhan, String maHoaDon) {
+    public void capNhatThongTinBenhNhan(String tenBenhNhan, String maHoaDon, String noiGiao) {
     	LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -313,6 +313,7 @@ public class datThuoc extends GradientPanel {
             "</html>");
         
         lblNewLabel_7.setText(maHoaDon+"    ");
+        lblNewLabel_8.setText(noiGiao+"      ");
     }
     
 

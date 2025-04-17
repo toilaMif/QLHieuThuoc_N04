@@ -54,10 +54,14 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 	private JPanel panelContainer;
 	private DefaultTableModel modelHD;
 	private JTable tableHD;
+	private JTextField txtMaThuoc;
 	private JLabel jlTongTienHD;
+	private JButton btnTimKiem;
 	private double tongThanhTien = 0;
+	private JTextField txtTenThuoc;
 	private NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
+	private JButton btnXoaRongTim;
 	private dao_thuoc thuocDAO;
 	private ArrayList<ent_thuoc> danhSachThuoc;
 	private ImageIcon anh;
@@ -67,10 +71,13 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 	private JTextField jtfNgayDat;
 	private JTextField jtfTrangThai;
 	private JTextField jtfMaKH;
+	private JTextField jtfNoiGiao;
 	private JTextField jtfTenKH;
-	private JTextField jtfSDT;
 	private JTextField jtfDiaChi;
+	private JComboBox<String> cbTrangThai;
 	private datThuoc donDat;
+	private ButtonGroup bgGioiTinh;
+	private JTextField jtfSDT;
 	private JButton xacnhanKhachhang;
 	private JButton xacnhanDondat;
 	private JButton xoarongDondat;
@@ -136,14 +143,14 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		JPanel panelMaThuoc = new JPanel(new BorderLayout(5, 5));
 		panelMaThuoc.setBackground(Color.white);
 		JLabel lblMaThuoc = new JLabel("Mã Thuốc");
-		JTextField txtMaThuoc = new JTextField();
+		txtMaThuoc = new JTextField();
 		panelMaThuoc.add(lblMaThuoc, BorderLayout.NORTH);
 		panelMaThuoc.add(txtMaThuoc, BorderLayout.CENTER);
 
 		JPanel panelTenThuoc = new JPanel(new BorderLayout(5, 5));
 		panelTenThuoc.setBackground(Color.white);
 		JLabel lblTenThuoc = new JLabel("Tên Thuốc");
-		JTextField txtTenThuoc = new JTextField();
+		txtTenThuoc = new JTextField();
 		panelTenThuoc.add(lblTenThuoc, BorderLayout.NORTH);
 		panelTenThuoc.add(txtTenThuoc, BorderLayout.CENTER);
 
@@ -158,11 +165,11 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		JPanel panelButton = new JPanel(new BorderLayout(5, 5));
 		panelButton.setBackground(Color.white);
 		JLabel lblDummy = new JLabel("Nút chức năng:");
-		JButton btnTimKiem = new JButton("Tìm Kiếm");
+		btnTimKiem = new JButton("Tìm Kiếm");
 		btnTimKiem.setBackground(new Color(101, 86, 255));
 		btnTimKiem.setForeground(Color.WHITE);
 
-		JButton btnXoaRongTim = new JButton("Xóa Rỗng");
+		btnXoaRongTim = new JButton("Xóa Rỗng");
 		btnXoaRongTim.setBackground(Color.RED);
 		btnXoaRongTim.setForeground(Color.WHITE);
 		btnXoaRongTim.addActionListener(e -> {
@@ -241,7 +248,7 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		
 		JLabel jlbSDT = new JLabel("SĐT:");
 		jlbSDT.setBounds(10, 80, 100, 20);
-		JTextField jtfSDT = new JTextField();
+		jtfSDT = new JTextField();
 		jtfSDT.setBounds(110, 80, 300, 30);
 
 		JLabel jlbGioiTinh = new JLabel("Giới tính:");
@@ -252,7 +259,7 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		jrbNam.setBackground(Color.white);
 		JRadioButton jrbNu = new JRadioButton("Nữ");
 		jrbNu.setBackground(Color.white);
-		ButtonGroup bgGioiTinh = new ButtonGroup();
+		bgGioiTinh = new ButtonGroup();
 		bgGioiTinh.add(jrbNam);
 		bgGioiTinh.add(jrbNu);
 		panelGioiTinh.add(jrbNam);
@@ -297,12 +304,12 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		// Ngày đặt
 		JLabel jlbNoiGiao = new JLabel("Nơi giao:");
 		jlbNoiGiao.setBounds(10, 80, 100, 20);
-		JTextField jtfNoiGiao = new JTextField();
+		jtfNoiGiao = new JTextField();
 		jtfNoiGiao.setBounds(110, 80, 300, 30);
 
 		JLabel jlbTrangThai = new JLabel("Trạng thái:");
 		jlbTrangThai.setBounds(10, 120, 100, 20);
-		JComboBox<String> cbTrangThai = new JComboBox<>(
+		cbTrangThai = new JComboBox<>(
 		    new String[]{"Chờ xử lý", "Đã xác nhận", "Đang giao", "Hoàn thành", "Đã hủy"});
 		cbTrangThai.setBounds(110, 120, 300, 30);
 		
@@ -349,6 +356,11 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		jpBangChinh.add(painKhungDieuKhien, BorderLayout.NORTH);
 		jpBangChinh.add(bangSP, BorderLayout.SOUTH);
 
+		btnTimKiem.addActionListener(this);
+		btnXoaRongTim.addActionListener(this);
+		xoarongDondat.addActionListener(this);
+		
+		
 		setVisible(true);
 		jbtThoat.addActionListener(this);
 	}
@@ -392,9 +404,50 @@ public class frm_DatThuoc extends frm_default implements ActionListener, MouseLi
 		}else if(o.equals(xacnhanDondat)) {
 			String tenBN = jtfHoTen.getText();
 			String maHD = jtfMaDon.getText();
-			donDat.capNhatThongTinBenhNhan(tenBN,maHD);
-			
+			String noiGiao = jtfNoiGiao.getText();
+			donDat.capNhatThongTinBenhNhan(tenBN,maHD,noiGiao);
 		}
+		else if (o.equals(btnTimKiem)) {
+            String maThuocSearch = txtMaThuoc.getText().trim().toLowerCase();
+            String tenThuocSearch = txtTenThuoc.getText().trim().toLowerCase();
+
+            if (maThuocSearch.equals("nhập dữ liệu")) {
+                maThuocSearch = "";
+            }
+            if (tenThuocSearch.equals("nhập dữ liệu")) {
+                tenThuocSearch = "";
+            }
+
+            ArrayList<ent_thuoc> filteredList = new ArrayList<>();
+            for (ent_thuoc thuoc : thuocDAO.getAllThuoc()) {
+                boolean matchesMaThuoc = maThuocSearch.isEmpty() || thuoc.getMaThuoc().toLowerCase().contains(maThuocSearch);
+                boolean matchesTenThuoc = tenThuocSearch.isEmpty() || thuoc.getTenThuoc().toLowerCase().contains(tenThuocSearch);
+
+                if (matchesMaThuoc && matchesTenThuoc) {
+                    filteredList.add(thuoc);
+                }
+            }
+
+            if (!filteredList.isEmpty()) {
+                hienThiThuoc(filteredList); // sử dụng chính hàm bạn viết
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy thuốc nào khớp với tìm kiếm!", "Thông báo",
+                        JOptionPane.INFORMATION_MESSAGE);
+                hienThiThuoc(thuocDAO.getAllThuoc()); // load lại tất cả nếu không có kết quả
+            }
+        }else if(o.equals(btnXoaRongTim)) {
+        	txtMaThuoc.setText("");
+        	txtTenThuoc.setText("");
+        	
+        }else if(o.equals(xoarongDondat)){
+        	jtfHoTen.setText("");
+            jtfSDT.setText("");
+            bgGioiTinh.clearSelection();  
+            jtfMaDon.setText("");
+            jtfNoiGiao.setText("");
+            cbTrangThai.setSelectedIndex(0);
+            HienThiSPBAN();
+        }
 	}
 	private void hienThiThuoc(ArrayList<ent_thuoc> danhSach) {
 	    panelContainer.removeAll();
