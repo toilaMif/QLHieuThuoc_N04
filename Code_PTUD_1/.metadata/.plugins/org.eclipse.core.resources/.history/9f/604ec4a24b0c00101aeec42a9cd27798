@@ -1,0 +1,57 @@
+package entity;
+
+import java.util.Objects;
+
+public class taiKhoan {
+		 private String maTK;
+		 private String maKhau;
+		 private String tenDangNhap;
+		public taiKhoan(String maTK, String maKhau, String tenDangNhap) {
+			super();
+			this.maTK = maTK;
+			this.maKhau = maKhau;
+			this.tenDangNhap = tenDangNhap;
+		}
+		public taiKhoan() {
+			super();
+		}
+		public taiKhoan(String maTK) {
+			super();
+			this.maTK = maTK;
+		}
+		public String getMaTK() {
+			return maTK;
+		}
+		public void setMaTK(String maTK) {
+			this.maTK = maTK;
+		}
+		public String getMaKhau() {
+			return maKhau;
+		}
+		public void setMaKhau(String maKhau) {
+			this.maKhau = maKhau;
+		}
+		public String getTenDangNhap() {
+			return tenDangNhap;
+		}
+		public void setTenDangNhap(String tenDangNhap) {
+			this.tenDangNhap = tenDangNhap;
+		}
+		@Override
+		public int hashCode() {
+			return Objects.hash(maTK);
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			ent_taiKhoan other = (ent_taiKhoan) obj;
+			return Objects.equals(maTK, other.maTK);
+		}
+		 
+		 
+}

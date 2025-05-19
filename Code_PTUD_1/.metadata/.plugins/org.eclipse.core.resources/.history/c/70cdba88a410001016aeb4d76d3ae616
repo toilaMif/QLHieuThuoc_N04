@@ -1,0 +1,73 @@
+package dao;
+
+import java.sql.*;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import controller.ConnectDB;
+import entity.ent_taiKhoan;
+
+public class dao_taiKhoan {
+    public ArrayList<ent_taiKhoan> getAllTaiKhoan() {
+        ArrayList<ent_taiKhoan> list = new ArrayList<>();
+        String sql = "SELECT tk.maNV, tk.tenDN, tk.matKhau, tk.maChucVu, cv.tenChucVu " +
+                "FROM TaiKhoan tk " +
+                "JOIN ChucVu cv ON tk.maChucVu = cv.maChucVu " +
+                "ORDER BY tk.maNV";
+
+        try (Connection con = ConnectDB.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                list.add(new ent_taiKhoan(
+                    rs.getString("maNV"), 
+                    rs.getString("tenDN"), 
+                    rs.getString("matKhau"), 
+                    rs.getString("tenChucVu")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ent_taiKhoan getTaiKhoanByUserName(String userName) {
+        String sql = "SELECT * FROM TaiKhoan WHERE tenDN = ?";
+        try (Connection con = ConnectDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new ent_taiKhoan(
+                    		rs.getString("maNV"), 
+                            rs.getString("tenDN"), 
+                            rs.getString("matKhau"), 
+                            rs.getString("tenChucVu")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+  
+
+    public boolean createTaiKhoan(ent_taiKhoan taiKhoan) {
+    	return false;
+    }
+
+
+    public boolean updateTaiKhoan(ent_taiKhoan taiKhoan) {
+        
+        return false;
+    }
+
+    public boolean deleteTaiKhoan(String maTk) {
+        
+        return false;
+    }
+}

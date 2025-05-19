@@ -1,0 +1,52 @@
+package frm;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.util.ArrayList;
+
+import dao.dao_taiKhoan;
+import entity.ent_taiKhoan;
+import frm_default.frm_default3_anh;
+
+public class frm_TaiKhoan extends frm_default3_anh {
+
+    private dao_taiKhoan taiKhoanDAO;
+
+    public frm_TaiKhoan() {
+        setTitle("Tài Khoản");
+        jlTieuDeTrang.setText("Tài Khoản");
+
+        // Cấu hình bảng
+        tieuDeCot = new String[] {"Mã Nhân Viên", "Mã tài khoản", "Tên đăng nhập", "Mật khẩu", "Chức vụ"};
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        table.setRowHeight(30);
+
+        // Kết nối DAO
+        taiKhoanDAO = new dao_taiKhoan();
+        loadData();
+
+     
+    }
+
+    private void loadData() {
+        // Xóa dữ liệu cũ
+        tableModel.setRowCount(0);
+
+        // Lấy danh sách tài khoản từ CSDL
+        ArrayList<ent_taiKhoan> danhSachTaiKhoan = taiKhoanDAO.getAllTaiKhoan();
+        for (ent_taiKhoan tk : danhSachTaiKhoan) {
+            tableModel.addRow(new Object[]{
+                "NV001",  
+                tk.getMaTK(),
+                tk.getTenDangNhap(),
+                tk.getMaKhau(),
+                "Nhân viên"  
+            });
+        }
+    }
+
+    public static void main(String[] args) {
+        new frm_TaiKhoan();
+    }
+}

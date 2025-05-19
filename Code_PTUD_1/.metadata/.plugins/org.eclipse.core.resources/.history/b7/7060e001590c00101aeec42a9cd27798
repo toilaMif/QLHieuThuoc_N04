@@ -1,0 +1,32 @@
+package frm;
+
+import java.awt.FlowLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import frm_default.frm_default2;
+import hieuUng.ImageResizer;
+
+public class frm_NhanVien extends frm_default2 {
+    
+    public frm_NhanVien() {
+        setTitle("Nhân viên");
+        jTenTrang.setText("Nhân viên");
+        jTenTrang.setIcon(ImageResizer.resizeImage("/image/menuNhanVien.png", 50, 50));
+        
+        
+        timkiem1.setText("Mã hóa đơn");
+        timkiem2.setText("Tên khách hàng");
+        jpHead.setLayout(new FlowLayout(FlowLayout.CENTER, 30,10));
+        tieuDeCot = new String[] {"Mã nhân viên", "Họ tên", "Số điện thoại", "Email","Ngày sinh","Ngày vào làm","Chức Vụ", "Giới Tính"};
+        
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        tableModel.setRowCount(0); 
+        
+        table.setRowHeight(30); 
+    }
+
+    public static void main(String[] args) {
+        new frm_NhanVien();
+    }
+}

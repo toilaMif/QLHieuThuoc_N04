@@ -1,0 +1,248 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import hieuUng.GradientPanel;
+
+public class frm_DangNhap extends JFrame implements ActionListener, MouseListener{
+
+	private JPanel jpEast;
+	private JLabel jlbDN;
+
+	private JLabel label1;
+	private JLabel label2;
+	private JLabel label3;
+	private JLabel jlbBH;
+	private JLabel jlbtk;
+	private JLabel jlbql;
+	private JLabel labelThuonghieu;
+	private JLabel labelAVT;
+	private GradientPanel jpCen;
+	private GradientPanel jpCenA1;
+	private GradientPanel jpCenA2;
+	private GradientPanel jpCenA3;
+	private GradientPanel thuonghieu;
+	private GradientPanel jpDN;
+	private GradientPanel jpAVT;
+	public frm_DangNhap() {
+//		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setSize(1000,500);
+		setTitle("Đăng Nhập");
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		getContentPane().setBackground(new Color(0x013034));
+		setResizable(false);
+		getContentPane().setLayout(new BorderLayout());
+		
+		
+		
+		
+		jpCen = new GradientPanel(); 
+		jpCen.setGradientColors( new Color(0x1F4842),new Color(0x1F4842)); 
+		jpCen.setCornerRadius(50);
+        jpCen.setLayout(null);
+        
+        jpCenA1 = new GradientPanel();
+        jpCenA1.setGradientColors( new Color(0xBCD365),new Color(0xBCD365)); 
+        jpCenA1.setCornerRadius(10);
+        jpCenA1.setLayout(new BorderLayout());
+        jpCenA1.setBackground(new Color(0xBCD365));
+        jpCenA1.setBounds(130, 30, 350, 250);
+
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/image/DNanh1.png"));
+		Image img = imageIcon.getImage().getScaledInstance(345, 245, Image.SCALE_REPLICATE);
+
+		label1 = new JLabel();
+		label1.setIcon(new ImageIcon(img));
+		
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
+        jpCenA1.add(label1, BorderLayout.CENTER);
+        
+        jpCenA2 = new GradientPanel(); //10
+        jpCenA2.setGradientColors( new Color(0xBCD365),new Color(0xBCD365)); 
+        jpCenA2.setCornerRadius(10);
+        jpCenA2.setLayout(new BorderLayout());
+        jpCenA2.setBackground(new Color(0xBCD365));
+        jpCenA2.setBounds(485, 280, 350, 250);
+
+        ImageIcon imageIcon1 = new ImageIcon(getClass().getResource("/image/TK.jpg"));
+		Image img1 = imageIcon1.getImage().getScaledInstance(345, 245, Image.SCALE_REPLICATE);
+
+		label2 = new JLabel();
+		label2.setIcon(new ImageIcon(img1));
+		
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+        jpCenA2.add(label2, BorderLayout.CENTER);
+        
+        jpCenA3 = new GradientPanel(); //10
+        jpCenA3.setGradientColors( new Color(0xBCD365),new Color(0xBCD365)); 
+        jpCenA3.setCornerRadius(10);
+        jpCenA3.setLayout(new BorderLayout());
+        jpCenA3.setBackground(new Color(0xBCD365));
+        jpCenA3.setBounds(130, 530, 350, 250);
+
+        ImageIcon imageIcon11 = new ImageIcon(getClass().getResource("/image/Anhdn3.png"));
+		Image img11 = imageIcon11.getImage().getScaledInstance(345, 245, Image.SCALE_REPLICATE);
+
+		label3 = new JLabel();
+		label3.setIcon(new ImageIcon(img11));
+		
+        label3.setHorizontalAlignment(SwingConstants.CENTER);
+        jpCenA3.add(label3, BorderLayout.CENTER);
+
+        
+        jlbBH = new JLabel("Bán Hàng");
+        jlbBH.setForeground(new Color(0xBCD365)); 
+        jlbBH.setFont(new Font("Arial", Font.BOLD, 45)); 
+        jlbBH.setBounds(500, 120, 300, 60); 
+        
+        jlbtk = new JLabel("Thống kê");
+        jlbtk.setForeground(new Color(0xBCD365)); 
+        jlbtk.setFont(new Font("Arial", Font.BOLD, 45)); 
+        jlbtk.setBounds(260, 380, 300, 60); 
+        jpCen.add(jlbtk);
+        
+        jlbql = new JLabel("Quản lý");
+        jlbql.setForeground(new Color(0xBCD365)); 
+        jlbql.setFont(new Font("Arial", Font.BOLD, 45)); 
+        jlbql.setBounds(500, 640, 300, 60); 
+        jpCen.add(jlbql);
+        
+        thuonghieu = new GradientPanel(); // 30
+        thuonghieu.setGradientColors( Color.white,Color.white); 
+        thuonghieu.setCornerRadius(30);
+        thuonghieu.setBackground(Color.white);
+        thuonghieu.setBounds(500, 780, 400, 50);
+        labelThuonghieu = new JLabel("Với quản lý hiệu thuốc tây TMT");
+        labelThuonghieu.setForeground(new Color(0xBCD365)); 
+        labelThuonghieu.setFont(new Font("Arial", Font.BOLD, 25)); 
+        thuonghieu.add(labelThuonghieu);
+        
+        jpCen.add(jpCenA1);
+        jpCen.add(jpCenA2);
+        jpCen.add(jpCenA3);
+        jpCen.add(jlbBH);
+        jpCen.add(thuonghieu);
+		
+		jpEast = new JPanel();
+		jpEast.setPreferredSize(new Dimension(550, 500));
+		jpEast.setBackground(new Color(0x013034));
+		jpEast.setLayout(null);
+		
+		jlbDN = new JLabel("Đăng Nhập");
+		jlbDN.setForeground(new Color(0xBCD365)); 
+		jlbDN.setFont(new Font("Arial", Font.BOLD, 45)); 
+		jlbDN.setBounds(59, 93, 300, 60); 
+
+
+		jpEast.add(jlbDN);
+
+		jpDN = new GradientPanel(); //40
+		jpDN.setGradientColors( new Color(0xB5E61D),new Color(0xB5E61D)); 
+		jpDN.setCornerRadius(40);
+        jpDN.setBackground(new Color(0xB5E61D));
+        jpDN.setBounds(50, 150, 450, 600);
+        jpDN.setLayout(null);
+        jpDN.setLayout(null);
+        
+     // Tạo JPanel chứa ảnh
+        jpAVT = new GradientPanel(); //130
+        jpAVT.setGradientColors( new Color(0xBCD365),new Color(0xBCD365)); 
+        jpAVT.setCornerRadius(130);
+        jpAVT.setForeground(new Color(0xBCD365));
+        jpAVT.setBounds(160, 40, 130, 130);
+        jpAVT.setLayout(new BorderLayout());  
+
+        // Load ảnh
+        URL imgUrl = getClass().getResource("/image/456212.png");
+        if (imgUrl == null) {
+            System.out.println("Không tìm thấy ảnh!");
+        } else {
+            ImageIcon imageIcon111 = new ImageIcon(imgUrl);
+            Image img111 = imageIcon111.getImage().getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+
+            labelAVT = new JLabel(new ImageIcon(img111));
+            labelAVT.setHorizontalAlignment(SwingConstants.CENTER);
+
+            jpAVT.add(labelAVT, BorderLayout.CENTER);
+        }
+
+       
+        jpDN.setLayout(null);
+        jpDN.add(jpAVT);
+
+        
+		
+        jpEast.add(jpDN);
+        
+        JLabel lblNewLabel = new JLabel("Đăng nhập để sử dụng");
+        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        lblNewLabel.setForeground(new Color(255, 255, 255));
+        lblNewLabel.setBounds(139, 180, 199, 19);
+        jpDN.add(lblNewLabel);
+		getContentPane().add(jpCen, BorderLayout.CENTER);
+		getContentPane().add(jpEast, BorderLayout.EAST);
+		
+		setVisible(true);
+	}
+	
+	
+	
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public static void main(String[] args) {
+		new frm_DangNhap();
+	}
+}

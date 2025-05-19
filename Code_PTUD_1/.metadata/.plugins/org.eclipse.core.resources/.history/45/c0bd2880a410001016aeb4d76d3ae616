@@ -1,0 +1,66 @@
+package entity;
+
+import java.util.Objects;
+
+public class ent_taiKhoan {
+    private String maTK;
+    private String matKhau;
+    private String tenDangNhap;
+    private String chucVu;
+
+    public ent_taiKhoan() {
+        super();
+    }
+
+    public ent_taiKhoan(String maTK, String tenDangNhap, String matKhau, String chucVu) {
+        this.maTK = maTK;
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+        this.chucVu = chucVu;
+    }
+
+    public String getMaTK() {
+        return maTK;
+    }
+
+    public void setMaTK(String maTK) {
+        this.maTK = maTK;
+    }
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+
+    public String getTenDangNhap() {
+        return tenDangNhap;
+    }
+
+    public void setTenDangNhap(String tenDangNhap) {
+        this.tenDangNhap = tenDangNhap;
+    }
+
+    public String getChucVu() {
+        return chucVu;
+    }
+
+    public void setChucVu(String chucVu) {
+        this.chucVu = chucVu;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maTK, tenDangNhap);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ent_taiKhoan other = (ent_taiKhoan) obj;
+        return Objects.equals(maTK, other.maTK) && Objects.equals(tenDangNhap, other.tenDangNhap);
+    }
+}

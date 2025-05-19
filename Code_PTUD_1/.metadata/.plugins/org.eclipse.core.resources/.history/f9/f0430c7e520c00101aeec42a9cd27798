@@ -1,0 +1,28 @@
+package entity;
+
+import java.util.Objects;
+
+public class ent_taiKhoan {
+		 private String maTK;
+		 private String maKhau;
+		 private String tenDangNhap;
+		 private String chucVu;
+		
+		public int hashCode() {
+			return Objects.hash(maTK);
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			ent_taiKhoan other = (ent_taiKhoan) obj;
+			return Objects.equals(maTK, other.maTK);
+		}
+		
+		 
+		 
+}

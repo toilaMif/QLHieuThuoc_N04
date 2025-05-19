@@ -1,0 +1,22 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ThemKe extends frm_default3 {
+	public frm_ThemKe() {
+		setTitle("Trang Thêm kệ");
+		jlTieuDeTrang.setText("Thêm kệ thuốc");
+		 tieuDeCot = new String[] {"Mã kệ", "Tên kệ", "Sức chứa tối đa", "Số lượng thuốc"};
+	        
+	        tableModel.setColumnIdentifiers(tieuDeCot);
+	        tableModel.setRowCount(0); 
+	        
+	        table.setRowHeight(30);
+		
+
+	}
+
+	public static void main(String[] args) {
+		new frm_ThemKe();
+	}
+}

@@ -1,0 +1,112 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import dao.dao_khachHang;
+import entity.ent_khachHang;
+import frm_default.frm_default_timKiem;
+import hieuUng.ImageResizer;
+import hieuUng.boGocComboBoxUI;
+import hieuUng.boGocTextField;
+
+public class frm_TimKiemNhanVien extends frm_default_timKiem {
+	private dao_khachHang khachHangDAO;
+	private JPanel jpaneNhap;
+	private boGocTextField textField;
+	private boGocTextField textField_1;
+	private boGocTextField textField_2;
+
+	public frm_TimKiemNhanVien() {
+
+		setTitle("Tìm kiếm Nhân Viên");
+		jTenTrang.setText("Tìm kiếm Nhân Viên");
+		jTenTrang.setIcon(ImageResizer.resizeImage("/image/menuNhanVien.png", 50, 50));
+		tieuDeCot = new String[] { "Mã khách hàng", "Họ và tên", "Số điện thoại", "Giới tính" };
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		table.addMouseListener(this);
+
+		khachHangDAO = new dao_khachHang();
+		loadData();
+
+		JPanel jpNhapThongTin = new JPanel();
+		jpNhapThongTin.setLayout(new GridLayout(1, 4, 20, 0)); // 1 hàng, 4 cột
+		jpNhapThongTin.setBackground(Color.white);
+
+		JPanel panelMaKH = new JPanel(new BorderLayout(5, 5));
+		panelMaKH.setBackground(Color.white);
+		JLabel lblMaKH = new JLabel("Mã Khách Hàng:");
+		boGocTextField textFieldMaKH = new boGocTextField(5);
+		textFieldMaKH.setColumns(15);
+		panelMaKH.add(lblMaKH, BorderLayout.NORTH);
+		panelMaKH.add(textFieldMaKH, BorderLayout.CENTER);
+
+		JPanel panelHoTen = new JPanel(new BorderLayout(5, 5));
+		panelHoTen.setBackground(Color.white);
+		JLabel lblHoTen = new JLabel("Họ Tên:");
+		boGocTextField textFieldHoTen = new boGocTextField(5);
+		textFieldHoTen.setColumns(15);
+		panelHoTen.add(lblHoTen, BorderLayout.NORTH);
+		panelHoTen.add(textFieldHoTen, BorderLayout.CENTER);
+
+		JPanel panelSDT = new JPanel(new BorderLayout(5, 5));
+		panelSDT.setBackground(Color.white);
+		JLabel lblSDT = new JLabel("Số Điện Thoại:");
+		boGocTextField textFieldSDT = new boGocTextField(5);
+		textFieldSDT.setColumns(15);
+		panelSDT.add(lblSDT, BorderLayout.NORTH);
+		panelSDT.add(textFieldSDT, BorderLayout.CENTER);
+
+		JPanel panelGioiTinh = new JPanel(new BorderLayout(5, 5));
+		panelGioiTinh.setBackground(Color.white);
+		JLabel lblGioiTinh = new JLabel("Giới Tính:");
+		JComboBox<String> comboBoxGioiTinh = new JComboBox<>();
+		comboBoxGioiTinh.addItem("Nam");
+		comboBoxGioiTinh.addItem("Nữ");
+		comboBoxGioiTinh.setUI(new boGocComboBoxUI());
+		comboBoxGioiTinh.setBackground(Color.WHITE);
+		comboBoxGioiTinh.setForeground(Color.BLACK);
+		comboBoxGioiTinh.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		comboBoxGioiTinh.setPreferredSize(new Dimension(200, 30));
+		comboBoxGioiTinh.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+		panelGioiTinh.add(lblGioiTinh, BorderLayout.NORTH);
+		panelGioiTinh.add(comboBoxGioiTinh, BorderLayout.CENTER);
+
+		
+		jpNhapThongTin.add(panelMaKH);
+		jpNhapThongTin.add(panelHoTen);
+		jpNhapThongTin.add(panelSDT);
+		jpNhapThongTin.add(panelGioiTinh);
+
+		
+		jpHead.add(jpNhapThongTin, BorderLayout.NORTH); 
+
+
+	}
+
+	public static void main(String[] args) {
+		new frm_TimKiemNhanVien();
+	}
+
+	private void loadData() {
+		tableModel.setRowCount(0);
+		ArrayList<ent_khachHang> danhSachKhachHang = khachHangDAO.getAllKhachHang();
+		for (ent_khachHang kh : danhSachKhachHang) {
+			tableModel.addRow(new Object[] { kh.getMaKh(), kh.getHoTen(), kh.getsDT(), kh.getGioiTinh() });
+		}
+	}
+}

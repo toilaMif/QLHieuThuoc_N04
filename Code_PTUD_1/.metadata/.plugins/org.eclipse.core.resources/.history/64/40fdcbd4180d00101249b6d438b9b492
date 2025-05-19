@@ -1,0 +1,243 @@
+package hieuUng;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+
+public class HoaDon extends GradientPanel {
+    private JLabel lblTotal; // Định nghĩa lblTotal là biến toàn cục để truy cập từ nhiều phương thức
+
+    public HoaDon() {
+    	
+    	
+    	setGradientColors(Color.WHITE,Color.WHITE);
+    	setCornerRadius(30);
+        setLayout(new BorderLayout());
+//        setBorder(BorderFactory.createLineBorder(new Color(0x013034), 10));
+
+        GradientPanel panel = new GradientPanel();
+         panel.setCornerRadius(30);
+        ((GradientPanel) panel).setGradientColors(Color.WHITE,Color.WHITE);
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(Color.WHITE);
+        add(panel, BorderLayout.NORTH);
+
+        JLabel lblTitle = new JLabel("Nhà thuốc TMT", JLabel.CENTER);
+        lblTitle.setFont(new Font("Arial", Font.BOLD, 32));
+        panel.add(lblTitle, BorderLayout.NORTH);
+
+        JLabel lblSubTitle = new JLabel("<html>Trường IUH - đại học công nghiệp TPHCM<br><b><center>Phần mềm quản lý hiệu thuốc tây</b></center></html>", JLabel.CENTER);
+        lblSubTitle.setFont(new Font("Arial", Font.PLAIN, 10));
+        panel.add(lblSubTitle, BorderLayout.CENTER);
+
+        JLabel lblSeparator = new JLabel("<html><hr style='width:150px; border: 2px solid black;'></html>", JLabel.CENTER);
+        panel.add(lblSeparator, BorderLayout.SOUTH);
+
+        JPanel panelContent = new JPanel(new BorderLayout());
+        panelContent.setBackground(Color.WHITE);
+        add(panelContent, BorderLayout.CENTER);
+
+        String maNV = "NV0001";
+
+        JPanel panelTable = new JPanel(new BorderLayout());
+        panelTable.setBackground(new Color(255, 255, 255));
+        panelContent.add(panelTable, BorderLayout.CENTER);
+
+        String[] columnNames = {"Tên Thuốc", "SL", "Đơn vị", "Đơn giá", "T.Tiền"};
+        Object[][] data = {
+                {"Paracetamol", "10", "Viên", "2000", "20000"},
+                {"Ibuprofen", "5", "Viên", "3000", "15000"},
+                {"Amoxicillin", "8", "Viên", "5000", "40000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"}
+        };
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(model) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof JComponent) {
+                    ((JComponent) c).setBorder(BorderFactory.createEmptyBorder(0, 0, 1, 0));
+                }
+                return c;
+            }
+        };
+
+        table.setShowGrid(false);
+        table.setIntercellSpacing(new Dimension(0, 0));
+        table.setRowHeight(30);
+        table.setBackground(Color.WHITE);
+        table.setOpaque(true);
+        table.getTableHeader().setBackground(Color.WHITE);
+        table.getTableHeader().setForeground(Color.BLACK);
+        table.getTableHeader().setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 10));
+        table.setFont(new Font("Arial", Font.ITALIC, 9));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setSize(340, 50);
+
+        panelTable.add(scrollPane, BorderLayout.CENTER);
+
+        // Tạo JLabel hiển thị tổng tiền
+        lblTotal = new JLabel("Tổng tiền: 0 VND", JLabel.RIGHT);
+        lblTotal.setBackground(new Color(255, 255, 255));
+        panelTable.add(lblTotal, BorderLayout.SOUTH);
+
+        // Cập nhật tổng tiền
+        updateTotalAmount(table);
+
+        JPanel panel_1 = new JPanel();
+        panel_1.setBackground(new Color(255, 255, 255));
+        panelContent.add(panel_1, BorderLayout.NORTH);
+        panel_1.setLayout(new BorderLayout(0, 0));
+
+        JLabel lblDonThuoc = new JLabel("Đơn Thuốc", JLabel.CENTER);
+        lblDonThuoc.setBackground(new Color(255, 255, 255));
+        panel_1.add(lblDonThuoc, BorderLayout.NORTH);
+        lblDonThuoc.setFont(new Font("Arial", Font.BOLD, 20));
+        JLabel lblInfo = new JLabel("<html>Mã NV: " + maNV + "<br>Ngày lập: 21/03/2025 - Giờ lập: 1:45:40<br>Dược sĩ: Thái Văn Trung<br>Bệnh nhân: Phạm Viết Dũng Minh</html>");
+        lblInfo.setBackground(new Color(255, 255, 255));
+        panel_1.add(lblInfo, BorderLayout.WEST);
+        lblInfo.setFont(new Font("Arial", Font.ITALIC, 9));
+        
+        JLabel lblNewLabel_7 = new JLabel("HD0001      ",JLabel.LEFT);
+        panel_1.add(lblNewLabel_7, BorderLayout.EAST);
+
+        GradientPanel panelFooter = new GradientPanel();
+        panelFooter.setCornerRadius(30);
+        panelFooter.setGradientColors(Color.WHITE,Color.WHITE);
+        panelFooter.setLayout(new BorderLayout(0, 0));
+        add(panelFooter, BorderLayout.SOUTH);
+
+        // Panel chứa dòng kẻ
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(Color.WHITE);
+        panel_2.setLayout(new BorderLayout(0, 0));
+        panelFooter.add(panel_2, BorderLayout.NORTH);
+
+        JPanel panel_4 = new JPanel();
+        panel_4.setBackground(Color.WHITE);
+        panel_4.setLayout(new BorderLayout(0, 0));
+        panel_2.add(panel_4, BorderLayout.NORTH);
+
+        JLabel lblNewLabel = new JLabel("<html><hr style='width:1000px;border:2px dashed black;'></html>");
+        lblNewLabel.setFont(new Font("Arial", Font.ITALIC, 9));
+        panel_4.add(lblNewLabel, BorderLayout.NORTH);
+
+        JLabel lblNewLabel_1 = new JLabel("VAT: 10%");
+        lblNewLabel_1.setFont(new Font("Arial", Font.ITALIC, 9));
+        panel_4.add(lblNewLabel_1, BorderLayout.WEST);
+
+        JLabel lblNewLabel_2 = new JLabel("10,000      ");
+        lblNewLabel_2.setFont(new Font("Arial", Font.ITALIC, 9));
+        panel_4.add(lblNewLabel_2, BorderLayout.EAST);
+        
+        
+
+
+        // Panel chứa tổng cộng và phương thức thanh toán
+        JPanel panel_3 = new JPanel();
+        panel_3.setBackground(Color.WHITE);
+        panel_3.setLayout(new GridLayout(2, 2, 0, 0)); // Để có khoảng cách hợp lý
+        panelFooter.add(panel_3, BorderLayout.CENTER);
+
+        JLabel lblNewLabel_3 = new JLabel("Tổng Cộng");
+        lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 20));
+        panel_3.add(lblNewLabel_3);
+
+        JLabel lblNewLabel_6 = new JLabel("132,000   ", JLabel.RIGHT);
+        panel_3.add(lblNewLabel_6);
+
+        JLabel lblNewLabel_4 = new JLabel("Hình thức thanh toán");
+        lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 14));
+        panel_3.add(lblNewLabel_4);
+
+        String[] paymentMethods = {"Tiền mặt", "Ngân hàng", "Momo"};
+        JComboBox<String> comboBox = new JComboBox<>(paymentMethods);
+        panel_3.add(comboBox);
+
+        // Panel chứa lời cảm ơn và số tiền bằng chữ
+        GradientPanel panel_5 = new GradientPanel();
+        panel_5.setCornerRadius(30);
+        panel_5.setGradientColors(Color.WHITE,Color.WHITE);
+        panel_5.setBackground(Color.WHITE);
+        panel_5.setLayout(new GridLayout(0, 1, -10, -10));
+        panelFooter.add(panel_5, BorderLayout.SOUTH);
+
+        JLabel lblNewLabel_5 = new JLabel("<html><hr style='width:1000px;border:2px dashed black;'></html>");
+        panel_5.add(lblNewLabel_5);
+        JLabel lblNewLabel_8 = new JLabel("<html><center>Cảm ơn quý khách!<br>Phạm Viết Dũng Minh</center></html>", JLabel.CENTER);
+        lblNewLabel_8.setFont(new Font("Arial", Font.BOLD, 20));
+        panel_5.add(lblNewLabel_8);
+        
+        
+
+       
+
+    }
+
+    // Hàm tính tổng tiền từ bảng
+    private void updateTotalAmount(JTable table) {
+        double total = 0;
+        int lastColumnIndex = table.getColumnCount() - 1; // Cột cuối là "Thành tiền"
+
+        for (int i = 0; i < table.getRowCount(); i++) {
+            Object value = table.getValueAt(i, lastColumnIndex);
+            if (value != null) {
+                try {
+                    total += Double.parseDouble(value.toString().replace(",", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Lỗi chuyển đổi số: " + value);
+                }
+            }
+        }
+
+        lblTotal.setText("<html><hr style='width:1000px;border:2px dashed black;'>" + String.format("%,.0f", total) + "   </html>");
+
+    }
+    
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Hóa Đơn");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(350, 600);
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().add(new HoaDon());
+        frame.setVisible(true);
+    }
+}

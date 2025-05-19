@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="frm.frm_ChiTietHoaDon"/>
+    <fullyQualifiedTypeName name="frm.frm_TimKiemKhachHang"/>
+    <fullyQualifiedTypeName name="org.apache.commons.compress.harmony.pack200.Pack200ClassReader"/>
+    <fullyQualifiedTypeName name="hieuUng.boGocComboBoxUI"/>
+    <fullyQualifiedTypeName name="java.awt.Panel"/>
+    <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+    <fullyQualifiedTypeName name="hieuUng.theGioiThieu"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="frm_default.frm_default2"/>
+    <fullyQualifiedTypeName name="frm.frm_ThongKeHoaDon"/>
+    <fullyQualifiedTypeName name="frm_default.frm_default_timKiem"/>
+    <fullyQualifiedTypeName name="frm_default.frm_default_ThongKe"/>
+    <fullyQualifiedTypeName name="dao.dao_NhanVien"/>
+    <fullyQualifiedTypeName name="frm.frm_NhanVien"/>
+    <fullyQualifiedTypeName name="entity.ent_NhaCungCap"/>
+    <fullyQualifiedTypeName name="dao.dao_KeThuoc"/>
+    <fullyQualifiedTypeName name="frm.frm_keThuoc"/>
+    <fullyQualifiedTypeName name="frm.frm_ChiTiecKeThuoc"/>
+    <fullyQualifiedTypeName name="frm.frm_home"/>
+    <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+    <fullyQualifiedTypeName name="frm.frm_DangNhap"/>
+    <fullyQualifiedTypeName name="javax.swing.JTextField"/>
+    <fullyQualifiedTypeName name="frm.frm_Thuoc"/>
+    <fullyQualifiedTypeName name="dao.dao_thuoc"/>
+    <fullyQualifiedTypeName name="frm_default.frm_default"/>
+    <fullyQualifiedTypeName name="frm.frm_DatCanhBao"/>
+    <fullyQualifiedTypeName name="java.awt.Dimension"/>
+    <fullyQualifiedTypeName name="hieuUng.datThuoc"/>
+    <fullyQualifiedTypeName name="javax.swing.JButton"/>
+    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+    <fullyQualifiedTypeName name="java.awt.GridLayout"/>
+    <fullyQualifiedTypeName name="java.awt.Color"/>
+    <fullyQualifiedTypeName name="javax.swing.JLabel"/>
+    <fullyQualifiedTypeName name="hieuUng.ImageResizer"/>
+</qualifiedTypeNameHistroy>

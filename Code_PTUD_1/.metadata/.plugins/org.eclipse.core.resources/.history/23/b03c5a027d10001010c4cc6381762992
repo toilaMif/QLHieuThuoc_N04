@@ -1,0 +1,47 @@
+package hieuUng;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+public class XuatExcel {
+    public static void exportData(String fileName, String[] columns, List<Object[]> data) {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Data Export");
+
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+        }
+
+        int rowNum = 1;
+        for (Object[] rowData : data) {
+            Row row = sheet.createRow(rowNum++);
+            for (int colNum = 0; colNum < rowData.length; colNum++) {
+                Cell cell = row.createCell(colNum);
+                if (rowData[colNum] instanceof String) {
+                    cell.setCellValue((String) rowData[colNum]);
+                } else if (rowData[colNum] instanceof Integer) {
+                    cell.setCellValue((Integer) rowData[colNum]);
+                }
+            }
+        }
+
+        try (FileOutputStream fileOut = new FileOutputStream(fileName)) {
+            workbook.write(fileOut);
+            System.out.println("✅ Xuất file Excel thành công!");
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi khi ghi file: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

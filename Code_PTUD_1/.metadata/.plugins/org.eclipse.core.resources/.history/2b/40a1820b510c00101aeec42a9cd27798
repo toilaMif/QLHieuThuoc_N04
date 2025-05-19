@@ -1,0 +1,107 @@
+package controller;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+public class ConnectDB {
+
+	public static Connection con = null;
+	private static ConnectDB instance = new ConnectDB();
+
+	public static ConnectDB getInstance() {
+		return instance;
+	}
+
+	public void connect() {
+		String url = "jdbc:sqlserver://localhost:1433;databasename=QuanLyHieuThuoc";
+		String user = "sa";
+		String password = "123!@#";
+		try {
+			con = DriverManager.getConnection(url, user, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void disconnect() {
+		if (con != null)
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
+
+	public static Connection getConnection() {
+		return con;
+	}
+
+	public void testConnection() {
+		connect();
+		if (con != null) {
+			System.out.println("Kết nối thành công!");
+		} else {
+			System.out.println("Kết nối thất bại!");
+		}
+		disconnect();
+	}
+
+	
+//	    public static void main(String[] args) {
+//	        ConnectDB db = ConnectDB.getInstance();
+//	        db.connect();
+//	        
+//	        if (ConnectDB.getConnection() != null) {
+//	            System.out.println("Kết nối thành công!");
+//	        } else {
+//	            System.out.println("Kết nối thất bại!");
+//	        }
+//
+//	        db.disconnect();
+//	    
+//	}
+	    public void printAllTaiKhoan() {
+	        String sql = "SELECT * FROM TaiKhoan";
+
+	        try (Connection con = getConnection();
+	             Statement stmt = con.createStatement();
+	             ResultSet rs = stmt.executeQuery(sql)) {
+
+	            System.out.println("Danh sách tài khoản:");
+	            System.out.println("+------------+--------------+--------------+");
+	            System.out.println("| Mã TK      | Tên ĐN       | Mật khẩu     |");
+	            System.out.println("+------------+--------------+--------------+");
+
+	            while (rs.next()) {
+	                String maTK = rs.getString(1);
+	                String tenDN = rs.getString(2);
+	                String matKhau = rs.getString(3);
+
+	                System.out.printf("| %-10s | %-12s | %-12s |\n", maTK, tenDN, matKhau);
+	            }
+	            System.out.println("+------------+--------------+--------------+");
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    public static void main(String[] args) {
+	        ConnectDB db = ConnectDB.getInstance();
+	        db.connect();
+
+	        if (ConnectDB.getConnection() != null) {
+	            System.out.println("Kết nối thành công!");
+	            db.printAllTaiKhoan(); // In danh sách tài khoản
+	        } else {
+	            System.out.println("Kết nối thất bại!");
+	        }
+
+	        db.disconnect();
+	    }
+
+}

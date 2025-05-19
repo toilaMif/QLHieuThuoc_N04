@@ -1,0 +1,24 @@
+package dao;
+
+import java.util.ArrayList;
+
+import entity.ent_taiKhoan;
+
+public class dao_taiKhoan {
+	public ArrayList<ent_taiKhoan> listTaiKhoan;
+
+	public dao_taiKhoan() {
+		listTaiKhoan = new ArrayList<ent_taiKhoan>();
+		
+	}
+
+	public ArrayList<ent_taiKhoan> getListTaiKhoan() {
+		return listTaiKhoan;
+	}
+
+	public void setListTaiKhoan(ArrayList<ent_taiKhoan> listTaiKhoan) {
+		this.listTaiKhoan = listTaiKhoan;
+	}
+	
+	
+}

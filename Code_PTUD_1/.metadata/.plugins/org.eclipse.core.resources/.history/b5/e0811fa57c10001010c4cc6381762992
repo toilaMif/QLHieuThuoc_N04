@@ -1,0 +1,19 @@
+package hieuUng;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
+public class TestPOI {
+    public static void main(String[] args) {
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            System.out.println("✅ Apache POI hoạt động tốt!");
+            workbook.close();
+        } catch (Exception e) {
+            System.out.println("❌ Lỗi: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}
+
+

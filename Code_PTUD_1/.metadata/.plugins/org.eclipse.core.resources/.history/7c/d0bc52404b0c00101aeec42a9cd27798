@@ -1,0 +1,8 @@
+package entity;
+
+public class taiKhoan {
+		 private String maTK;
+		 private String maKhau;
+		 private String tenDangNhap;
+		 
+}

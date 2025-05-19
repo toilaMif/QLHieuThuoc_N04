@@ -1,0 +1,109 @@
+package dao;
+
+import java.sql.*;
+import java.util.ArrayList;
+import controller.ConnectDB;
+import entity.ent_taiKhoan;
+
+public class dao_taiKhoan {
+    public ArrayList<ent_taiKhoan> getAllTaiKhoan() {
+        ArrayList<ent_taiKhoan> list = new ArrayList<>();
+        String sql = "SELECT * FROM TaiKhoan";
+        try (Connection con = ConnectDB.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                list.add(new ent_taiKhoan(
+                    rs.getString("maTK"), 
+                    rs.getString("tenDN"), 
+                    rs.getString("matKhau"), 
+                    rs.getString("chucVu")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ent_taiKhoan getTaiKhoanByUserName(String userName) {
+        String sql = "SELECT * FROM TaiKhoan WHERE tenDN = ?";
+        try (Connection con = ConnectDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, userName);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new ent_taiKhoan(
+                        rs.getString("maTK"), 
+                        rs.getString("tenDN"), 
+                        rs.getString("matKhau"), 
+                        rs.getString("chucVu")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean isUserNameExists(String tenNguoiDung) {
+        String sql = "SELECT 1 FROM TaiKhoan WHERE tenDN = ?";
+        try (Connection con = ConnectDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, tenNguoiDung);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean createTaiKhoan(ent_taiKhoan taiKhoan) {
+        if (isUserNameExists(taiKhoan.getTenDangNhap())) {
+            System.out.println("Tên người dùng đã tồn tại!");
+            return false;
+        }
+        String sql = "INSERT INTO TaiKhoan (maTK, tenDN, matKhau, chucVu) VALUES (?, ?, ?, ?)";
+        try (Connection con = ConnectDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, taiKhoan.getMaTK());
+            stmt.setString(2, taiKhoan.getTenDangNhap());
+            stmt.setString(3, taiKhoan.getMatKhau());
+            stmt.setString(4, taiKhoan.getChucVu());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateTaiKhoan(ent_taiKhoan taiKhoan) {
+        String sql = "UPDATE TaiKhoan SET tenDN = ?, matKhau = ?, chucVu = ? WHERE maTK = ?";
+        try (Connection con = ConnectDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, taiKhoan.getTenDangNhap());
+            stmt.setString(2, taiKhoan.getMatKhau());
+            stmt.setString(3, taiKhoan.getChucVu());
+            stmt.setString(4, taiKhoan.getMaTK());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteTaiKhoan(String maTk) {
+        String sql = "DELETE FROM TaiKhoan WHERE maTK = ?";
+        try (Connection con = ConnectDB.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setString(1, maTk);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+}

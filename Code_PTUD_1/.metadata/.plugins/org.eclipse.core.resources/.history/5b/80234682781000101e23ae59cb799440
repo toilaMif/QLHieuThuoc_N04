@@ -1,0 +1,86 @@
+package frm;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+import dao.dao_taiKhoan;
+import entity.ent_taiKhoan;
+import frm_default.frm_default3;
+
+public class frm_TaiKhoan extends frm_default3 {
+
+    private dao_taiKhoan taiKhoanDAO;
+    private JTextField textField;
+    private JTextField textField_1;
+    private JLabel lblNewLabel_2;
+    private JTextField textField_2;
+    private JLabel lblNewLabel_3;
+    private JTextField textField_3;
+    private JTextField textField_4;
+    private JTextField textField_5;
+    private JTextField textField_6;
+    private JTextField textField_7;
+
+    public frm_TaiKhoan() {
+    	khungAnh.setBounds(44, 337, 298, 435);
+        setTitle("Tài Khoản");
+        jlTieuDeTrang.setText("Tài Khoản");
+
+        
+        
+        btnXoaRong.addActionListener(this);
+        
+        // Cấu hình bảng
+        tieuDeCot = new String[] {"Mã tài khoản", "Tên đăng nhập", "Mật khẩu", "Chức vụ"};
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        table.setRowHeight(30);
+        
+        taoThongTin();
+
+        btnThem.addActionListener(e -> themTaiKhoan());
+
+        
+        
+        
+        
+
+        // Kết nối DAO
+        taiKhoanDAO = new dao_taiKhoan();
+        loadData();
+
+     
+    }
+
+    private void loadData() {
+        
+        tableModel.setRowCount(0);
+
+        
+        ArrayList<ent_taiKhoan> danhSachTaiKhoan = taiKhoanDAO.getAllTaiKhoan();
+        for (ent_taiKhoan tk : danhSachTaiKhoan) {
+            tableModel.addRow(new Object[]{
+               
+                tk.getMaTK(),
+                tk.getTenDangNhap(),
+                tk.getMatKhau(),
+                tk.getChucVu()  
+            });
+        }
+    }
+    private void themTaiKhoan() {
+        
+    }
+
+
+
+
+    public static void main(String[] args) {
+        new frm_TaiKhoan();
+    }
+    public void actionPerformed(ActionEvent e) {
+	    
+	}
+}

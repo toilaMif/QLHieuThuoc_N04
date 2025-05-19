@@ -1,0 +1,20 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietThuoc extends frm_default3 {
+	public frm_ChiTietThuoc() {
+		setTitle("Chi Tiết Thuốc");
+		jlTieuDeTrang.setText("Chi Tiết Thuốc");
+		
+		tieuDeCot = new String[] {"Mã thuốc", "Tên thuốc", "Đơn vị", "Danh mục","Giá bán","Hạn sử dụng","Nhà cung cấp"};
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		taoThongTin();
+		}
+
+	public static void main(String[] args) {
+		new frm_ChiTietThuoc();
+	}
+}

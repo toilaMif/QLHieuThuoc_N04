@@ -1,0 +1,20 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietPhieuNhap extends frm_default3 {
+	public frm_ChiTietPhieuNhap() {
+		setTitle("Chi Tiếc Phiếu Nhập Hàng");
+		jlTieuDeTrang.setText("Chi Tiếc Phiếu Nhập Hàng");
+		
+		tieuDeCot = new String[] {"Mã phiếu nhập hàng", "Mã nhà cung cấp","ngày nhập", "Tổng tiền"};
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		taoThongTin();
+		}
+
+	public static void main(String[] args) {
+		new frm_ChiTietPhieuNhap();
+	}
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="panelHinhThuc"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="panelHinhThuc"/>
+			<item value="cbHinhThuc"/>
+			<item value="bang"/>
+			<item value="bảng chính"/>
+			<item value="./src/img_thuoc"/>
+			<item value="xoa"/>
+			<item value="painKhungThongTin"/>
+			<item value="xac"/>
+			<item value="tìm"/>
+			<item value="in hóa"/>
+			<item value="In"/>
+			<item value="In đơn"/>
+			<item value="in đơn"/>
+			<item value="in đon"/>
+			<item value="in don"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1357"/>
+		<item key="DIALOG_Y_ORIGIN" value="190"/>
+		<item key="DIALOG_WIDTH" value="414"/>
+		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

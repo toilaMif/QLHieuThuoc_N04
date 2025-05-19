@@ -1,0 +1,141 @@
+package frm;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+import dao.dao_taiKhoan;
+import entity.ent_taiKhoan;
+import frm_default.frm_default3;
+
+public class frm_TaiKhoan extends frm_default3 {
+
+    private dao_taiKhoan taiKhoanDAO;
+    private JTextField textField;
+    private JTextField textField_1;
+    private JLabel lblNewLabel_2;
+    private JTextField textField_2;
+    private JLabel lblNewLabel_3;
+    private JTextField textField_3;
+
+    public frm_TaiKhoan() {
+    	khungAnh.setBounds(44, 337, 298, 435);
+        setTitle("Tài Khoản");
+        jlTieuDeTrang.setText("Tài Khoản");
+
+        btnXoaRong.setText("❌ Thoát");
+        btnXoaRong.addActionListener(e -> themTaiKhoan());
+        btnXoaRong.addActionListener(this);
+        
+     // Cấu hình bảng
+        String[] tieuDeCot = {"Mã tài khoản", "Tên đăng nhập", "Mật khẩu", "Chức vụ"};
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        table.setRowHeight(30);
+
+        // Cấu hình layout
+        thongtin.setLayout(new GridLayout(5, 2, 5, 5));
+
+        // Thêm các thành phần giao diện
+        JLabel lblMaTaiKhoan = new JLabel("Mã tài khoản:");
+        thongtin.add(lblMaTaiKhoan);
+        JTextField txtMaTaiKhoan = new JTextField();
+        thongtin.add(txtMaTaiKhoan);
+
+        JLabel lblTenDangNhap = new JLabel("Tên đăng nhập:");
+        thongtin.add(lblTenDangNhap);
+        JTextField txtTenDangNhap = new JTextField();
+        thongtin.add(txtTenDangNhap);
+
+        JLabel lblMatKhau = new JLabel("Mật khẩu:");
+        thongtin.add(lblMatKhau);
+        JPasswordField txtMatKhau = new JPasswordField();
+        thongtin.add(txtMatKhau);
+
+        JLabel lblChucVu = new JLabel("Chức vụ:");
+        thongtin.add(lblChucVu);
+        JTextField txtChucVu = new JTextField();
+        thongtin.add(txtChucVu);
+
+        // Nút chức năng
+        JButton btnThem = new JButton("Thêm tài khoản");
+        thongtin.add(btnThem);
+        JButton btnXoa = new JButton("Xóa tài khoản");
+        thongtin.add(btnXoa);
+
+        
+
+        // Kết nối DAO
+        taiKhoanDAO = new dao_taiKhoan();
+        loadData();
+
+     
+    }
+
+    private void loadData() {
+        
+        tableModel.setRowCount(0);
+
+        
+        ArrayList<ent_taiKhoan> danhSachTaiKhoan = taiKhoanDAO.getAllTaiKhoan();
+        for (ent_taiKhoan tk : danhSachTaiKhoan) {
+            tableModel.addRow(new Object[]{
+               
+                tk.getMaTK(),
+                tk.getTenDangNhap(),
+                tk.getMatKhau(),
+                tk.getChucVu()  
+            });
+        }
+    }
+    private void themTaiKhoan() {
+//        JTextField txtMaNV = new JTextField();
+//        JTextField txtTenDN = new JTextField();
+//        JPasswordField txtMatKhau = new JPasswordField();
+//        JTextField txtChucVu = new JTextField();
+//
+//        Object[] message = {
+//            "Mã nhân viên:", txtMaNV,
+//            "Tên đăng nhập:", txtTenDN,
+//            "Mật khẩu:", txtMatKhau,
+//            "Chức vụ:", txtChucVu
+//        };
+//
+//        int option = JOptionPane.showConfirmDialog(null, message, "Thêm tài khoản", JOptionPane.OK_CANCEL_OPTION);
+//        if (option == JOptionPane.OK_OPTION) {
+//            String maNV = txtMaNV.getText().trim();
+//            String tenDN = txtTenDN.getText().trim();
+//            String matKhau = new String(txtMatKhau.getPassword()).trim();
+//            String chucVu = txtChucVu.getText().trim();
+//
+//            if (maNV.isEmpty() || tenDN.isEmpty() || matKhau.isEmpty() || chucVu.isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            if (taiKhoanDAO.isUserNameExists(tenDN)) {
+//                JOptionPane.showMessageDialog(this, "Tên đăng nhập đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//                return;
+//            }
+//
+//            ent_taiKhoan taiKhoanMoi = new ent_taiKhoan(maNV, tenDN, matKhau, chucVu);
+//            if (taiKhoanDAO.createTaiKhoan(taiKhoanMoi)) {
+//                JOptionPane.showMessageDialog(this, "Thêm tài khoản thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                loadData();
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Thêm tài khoản thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+    }
+
+    public static void main(String[] args) {
+        new frm_TaiKhoan();
+    }
+    public void actionPerformed(ActionEvent e) {
+	    if (e.getActionCommand().equals("❌ Thoát")) {
+	        this.dispose(); // Đóng cửa sổ hiện tại
+	        new frm_home(); // Mở lại trang Home
+	    }
+	}
+}

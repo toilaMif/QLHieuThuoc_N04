@@ -1,0 +1,13 @@
+package frm;
+
+import frm_default.frm_default3_anh;
+
+public class frm_TaiKhoan extends frm_default3_anh{
+	public frm_TaiKhoan() {
+		setTitle("Tài Khoản");
+		jl
+	}
+	public static void main(String[] args) {
+		
+	}
+}

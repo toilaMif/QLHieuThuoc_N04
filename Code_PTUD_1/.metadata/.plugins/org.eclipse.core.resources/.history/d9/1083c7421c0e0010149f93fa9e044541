@@ -1,0 +1,20 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietNCC extends frm_default3 {
+	public frm_ChiTietNCC() {
+		setTitle("Chi Tiếc Nhà Cung Cấp");
+		jlTieuDeTrang.setText("Chi Tiếc Nhà Cung Cấp");
+		
+		tieuDeCot  = new String[] {"Mã thuốc", "Tên thuốc", "Đơn vị", "Danh mục", 	"Hạn sữ dụng","Số lượng"	};
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		taoThongTin();
+		}
+
+	public static void main(String[] args) {
+		new frm_ChiTietNCC();
+	}
+}

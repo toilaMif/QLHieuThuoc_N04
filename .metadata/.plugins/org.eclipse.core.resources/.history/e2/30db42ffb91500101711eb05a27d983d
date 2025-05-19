@@ -1,0 +1,183 @@
+package hieuUng;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.SwingUtilities;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
+public class BieuDoUtil {
+
+    private static JPanel jpBieuDo;
+	// Biểu đồ cột
+    public static ChartPanel createBarChartPanel() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(5, "Doanh thu", "T1");
+        dataset.addValue(7, "Doanh thu", "T2");
+        dataset.addValue(6, "Doanh thu", "T3");
+        dataset.addValue(5, "Doanh thu", "T4");
+        dataset.addValue(7, "Doanh thu", "T5");
+        dataset.addValue(6, "Doanh thu", "T6");
+        dataset.addValue(5, "Doanh thu", "T7");
+        dataset.addValue(7, "Doanh thu", "T8");
+        dataset.addValue(6, "Doanh thu", "T9");
+        dataset.addValue(5, "Doanh thu", "T10");
+        dataset.addValue(7, "Doanh thu", "T11");
+        dataset.addValue(6, "Doanh thu", "T12");
+
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Biểu Đồ Cột",
+                "Thời gian",
+                "Giá trị",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false, true, false);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.white); 
+        plot.setDomainGridlinePaint(Color.gray); 
+        plot.setRangeGridlinePaint(Color.GRAY);
+
+        // Lấy renderer để tùy chỉnh màu cột new Color(180, 220, 85)
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setSeriesPaint(0,new Color(180, 220, 85)); 
+
+        return new ChartPanel(chart);
+    }
+
+
+    public static ChartPanel createPieChartPanel() {
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Thuốc A", 10);
+        dataset.setValue("Thuốc B", 30);
+        dataset.setValue("Thuốc C", 20);
+        dataset.setValue("Thuốc D", 10);
+        dataset.setValue("Thuốc E", 20);
+        dataset.setValue("Thuốc F", 10);
+
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Biểu Đồ Tròn",
+                dataset,
+                true, true, false);
+
+        chart.setBackgroundPaint(Color.WHITE);
+
+        // Lấy PiePlot thay vì CategoryPlot
+        PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setBackgroundPaint(new Color(180, 220, 85)); 
+        plot.setOutlineVisible(false); // ẩn viền xung quanh biểu đồ
+        plot.setLabelBackgroundPaint(Color.WHITE); // màu nền của label
+
+        return new ChartPanel(chart);
+    }
+
+
+    // Biểu đồ đường
+    public static ChartPanel createLineChartPanel() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(2, "Lượt mua", "Tháng 1");
+        dataset.addValue(4, "Lượt mua", "Tháng 2");
+        dataset.addValue(5, "Lượt mua", "Tháng 3");
+        dataset.addValue(6, "Lượt mua", "Tháng 4");
+        dataset.addValue(3, "Lượt mua", "Tháng 5");
+        dataset.addValue(8, "Lượt mua", "Tháng 6");
+        dataset.addValue(9, "Lượt mua", "Tháng 7");
+        dataset.addValue(4, "Lượt mua", "Tháng 8");
+        dataset.addValue(0, "Lượt mua", "Tháng 9");
+        dataset.addValue(4, "Lượt mua", "Tháng 10");
+        dataset.addValue(7, "Lượt mua", "Tháng 11");
+        dataset.addValue(10, "Lượt mua", "Tháng 12");
+
+        JFreeChart chart = ChartFactory.createLineChart(
+                "Biểu Đồ Đường",
+                "Thời gian",
+                "Số lượt",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false, true, false);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.white); 
+        plot.setDomainGridlinePaint(Color.red); 
+        plot.setRangeGridlinePaint(Color.GRAY);
+        return new ChartPanel(chart);
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Demo Biểu Đồ với RadioButton");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(700, 500);
+            frame.setLayout(new BorderLayout());
+
+            // Panel chứa biểu đồ
+            jpBieuDo = new JPanel(new BorderLayout());
+            jpBieuDo.setBorder(BorderFactory.createTitledBorder("Biểu Đồ"));
+            frame.add(jpBieuDo, BorderLayout.CENTER);
+
+            // Panel chứa RadioButton
+            JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            JRadioButton rbCot = new JRadioButton("Cột");
+            JRadioButton rbTron = new JRadioButton("Tròn");
+            JRadioButton rbDuong = new JRadioButton("Đường");
+
+            ButtonGroup group = new ButtonGroup();
+            group.add(rbCot);
+            group.add(rbTron);
+            group.add(rbDuong);
+
+            panelButtons.add(rbCot);
+            panelButtons.add(rbTron);
+            panelButtons.add(rbDuong);
+
+            frame.add(panelButtons, BorderLayout.NORTH);
+
+            // Sự kiện khi chọn RadioButton
+            ActionListener actionListener = e -> {
+                jpBieuDo.removeAll();
+                ChartPanel chart = switch (e.getActionCommand()) {
+                    case "Tròn" -> BieuDoUtil.createPieChartPanel();
+                    case "Đường" -> BieuDoUtil.createLineChartPanel();
+                    default -> BieuDoUtil.createBarChartPanel();
+                };
+                chart.setPreferredSize(new Dimension(650, 400));
+                jpBieuDo.add(chart, BorderLayout.CENTER);
+                jpBieuDo.revalidate();
+                jpBieuDo.repaint();
+            };
+
+            rbCot.setActionCommand("Cột");
+            rbTron.setActionCommand("Tròn");
+            rbDuong.setActionCommand("Đường");
+
+            rbCot.addActionListener(actionListener);
+            rbTron.addActionListener(actionListener);
+            rbDuong.addActionListener(actionListener);
+
+            rbCot.setSelected(true); 
+            rbCot.doClick(); 
+
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+    }
+}
+

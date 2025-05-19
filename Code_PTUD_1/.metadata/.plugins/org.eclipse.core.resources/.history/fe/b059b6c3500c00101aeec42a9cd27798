@@ -1,0 +1,141 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import controller.ConnectDB;
+import entity.ent_taiKhoan;
+
+public class dao_taiKhoan {
+	private ArrayList<ent_taiKhoan> listTaiKhoan;
+
+    public dao_taiKhoan() {
+        listTaiKhoan = new ArrayList<>();
+    }
+
+    public ArrayList<ent_taiKhoan> getListTaiKhoan() {
+        return listTaiKhoan;
+    }
+
+    public void setListTaiKhoan(ArrayList<ent_taiKhoan> listTaiKhoan) {
+        this.listTaiKhoan = listTaiKhoan;
+    }
+
+    public ArrayList<ent_taiKhoan> getAllTaiKhoan() {
+    	ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        ArrayList<ent_taiKhoan> list = new ArrayList<>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM TaiKhoan");
+            while (rs.next()) {
+                list.add(new ent_taiKhoan(rs.getString(1), rs.getString(2), rs.getString(3)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public ent_taiKhoan getTaiKhoanByUserName(String userName) {
+    	ConnectDB.getInstance();
+        Connection con = ConnectDB.getConnection();
+        ent_taiKhoan taiKhoan = null;
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM TaiKhoan WHERE tenDN = ?");
+            stmt.setString(1, userName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                taiKhoan = new ent_taiKhoan(rs.getString(1), rs.getString(2), rs.getString(3));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return taiKhoan;
+    }
+//
+//    public boolean isUserNameExists(String tenNguoiDung) {
+//    	ConnectDB.getInstance();
+//        Connection con = ConnectDB.getConnection();
+//        try {
+//            PreparedStatement stmt = con.prepareStatement("SELECT * FROM TaiKhoan WHERE tenNguoiDung = ?");
+//            stmt.setString(1, tenNguoiDung);
+//            ResultSet rs = stmt.executeQuery();
+//            return rs.next();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
+//
+//    public boolean createTaiKhoan(ent_taiKhoan taiKhoan) {
+//        if (isUserNameExists(taiKhoan.getTenNguoiDung())) {
+//            System.out.println("Tên người dùng đã tồn tại. Không thể thêm tài khoản mới.");
+//            return false;
+//        }
+//
+//        int n = 0;
+//        ConnectDB.getInstance();
+//        Connection con = ConnectDB.getConnection();
+//        try {
+//            PreparedStatement stmt = con.prepareStatement("INSERT INTO TaiKhoan VALUES (?, ?, ?)");
+//            stmt.setString(1, taiKhoan.getMaTk());
+//            stmt.setString(2, taiKhoan.getTenNguoiDung());
+//            stmt.setString(3, taiKhoan.getMatKhau());
+//            n = stmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return n != 0;
+//    }
+//
+//    public boolean updateTaiKhoan(ent_taiKhoan taiKhoan) {
+//        int n = 0;
+//        ConnectDB.getInstance();
+//        Connection con = ConnectDB.getConnection();
+//        try {
+//            PreparedStatement stmt = con.prepareStatement("UPDATE TaiKhoan SET tenNguoiDung = ?, matKhau = ? WHERE maTK = ?");
+//            stmt.setString(1, taiKhoan.getTenNguoiDung());
+//            stmt.setString(2, taiKhoan.getMatKhau());
+//            stmt.setString(3, taiKhoan.getMaTk());
+//            n = stmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return n != 0;
+//    }
+//
+//    public boolean deleteTaiKhoan(String maTk) {
+//        int n = 0;
+//        ConnectDB.getInstance();
+//        Connection con = ConnectDB.getConnection();
+//        try {
+//            PreparedStatement stmt = con.prepareStatement("DELETE FROM TaiKhoan WHERE maTK = ?");
+//            stmt.setString(1, maTk);
+//            n = stmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return n != 0;
+//    }
+    
+ 
+        public static void main(String[] args) {
+            dao_taiKhoan tk = new dao_taiKhoan();  
+            
+           
+            ent_taiKhoan taiKhoan = tk.getTaiKhoanByUserName("trung123");
+
+            if (taiKhoan != null) {
+                System.out.println(taiKhoan.toString());
+            } else {
+                System.out.println("Không tìm thấy tài khoản.");
+            }
+        }
+    
+
+}

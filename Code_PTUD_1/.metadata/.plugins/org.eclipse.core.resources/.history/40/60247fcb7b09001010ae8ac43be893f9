@@ -1,0 +1,118 @@
+package frm;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import hieuUng.GradientPanel;
+
+public class frm_default3_anh extends JFrame implements ActionListener {
+    private DefaultTableModel tableModel;
+    private JTable table;
+    private JButton btnXoaRong, btnLuu, btnImport;
+
+    public frm_default3_anh() {
+        setTitle("Default3");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(null);
+
+        // Thanh công cụ tiêu đề
+        GradientPanel jpThanhCongCu = new GradientPanel();
+        jpThanhCongCu.setGradientColors(new Color(173, 230, 106), new Color(173, 230, 106));
+        jpThanhCongCu.setCornerRadius(20);
+        jpThanhCongCu.setLayout(new BorderLayout());
+        jpThanhCongCu.add(new JLabel("Tiêu đề Trang", SwingConstants.CENTER) {{
+            setForeground(Color.black);
+            setFont(new Font("Arial", Font.BOLD, 60));
+        }});
+        getContentPane().add(jpThanhCongCu);
+
+        // Bảng dữ liệu
+        tableModel = new DefaultTableModel(new String[]{"Thông tin", "Nhập dữ liệu"}, 0);
+        table = new JTable(tableModel);
+        for (int i = 0; i < 4; i++) {
+            tableModel.addRow(new Object[]{"Thuộc tính " + (i + 1), "Giá trị " + (i + 1)});
+        }
+
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(new Color(173, 230, 106));
+        header.setForeground(Color.BLACK);
+        header.setFont(new Font("Arial", Font.BOLD, 24));
+
+        table.setGridColor(new Color(0, 128, 0));
+        table.setShowGrid(true);
+        table.setIntercellSpacing(new Dimension(1, 1));
+        table.setRowHeight(25);
+        table.setOpaque(false);
+        
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        scrollPane.getViewport().setOpaque(false);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setOpaque(false);
+        panel.setBorder(new LineBorder(new Color(173, 230, 106), 2));
+        panel.add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(panel);
+
+        // Panel chứa nút bấm
+//        buttonPanel.setBackground(Color.red);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 5)); // Căn trái, khoảng cách 10px giữa các nút
+
+
+        btnXoaRong = createButton("❌ Xóa rỗng", Color.RED);
+        btnLuu = createButton("💾 Lưu", Color.BLUE);
+        btnImport = createButton("📂 Import", Color.BLUE);
+
+        buttonPanel.add(btnXoaRong);
+        buttonPanel.add(btnLuu);
+        buttonPanel.add(btnImport);
+        getContentPane().add(buttonPanel);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(21, 135, 389, 597);
+        panel_1.setBorder(new LineBorder(new Color(173, 230, 106), 2));
+        getContentPane().add(panel_1);
+
+        // Cập nhật vị trí khi resize
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+            	 jpThanhCongCu.setBounds((int) (getWidth() * 0.025), 20, (int) (getWidth() * 0.95), (int) (getHeight() * 0.15));
+                 panel.setBounds((int) (getWidth() * 0.25), (int) (getHeight() * 0.15) + 50, (int) (getWidth() * 0.725), (int) (getHeight() * 0.65));
+                 buttonPanel.setBounds((int) (getWidth() * 0.25), (int) (getHeight() * 0.65) + 200, (int) (getWidth() * 0.725), (int) (getHeight() * 0.13));
+                 panel_1.setBounds((int) (getWidth() * 0.025), (int) (getHeight() * 0.15) + 50, (int) (getWidth() * 0.20), (int) (getHeight() * 0.73));
+            }
+        });
+
+        setVisible(true);
+    }
+
+    private JButton createButton(String text, Color bgColor) {
+        JButton button = new JButton(text);
+        button.setBackground(bgColor);
+        button.setForeground(Color.WHITE);
+        button.addActionListener(this);
+        button.setPreferredSize(new Dimension(130,40));
+        return button;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnXoaRong) {
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                    tableModel.setValueAt("", i, j);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new frm_default3_anh();
+    }
+}

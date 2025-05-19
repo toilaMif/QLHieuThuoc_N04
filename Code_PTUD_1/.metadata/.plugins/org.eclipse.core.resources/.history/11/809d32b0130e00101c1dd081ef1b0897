@@ -1,0 +1,118 @@
+package frm;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+import dao.dao_taiKhoan;
+import entity.ent_taiKhoan;
+import frm_default.frm_default3;
+
+public class frm_TaiKhoan extends frm_default3 {
+
+    private dao_taiKhoan taiKhoanDAO;
+    private JTextField textField;
+    private JTextField textField_1;
+    private JLabel lblNewLabel_2;
+    private JTextField textField_2;
+    private JLabel lblNewLabel_3;
+    private JTextField textField_3;
+    private JTextField textField_4;
+    private JTextField textField_5;
+    private JTextField textField_6;
+    private JTextField textField_7;
+
+    public frm_TaiKhoan() {
+    	khungAnh.setBounds(44, 337, 298, 435);
+        setTitle("Tài Khoản");
+        jlTieuDeTrang.setText("Tài Khoản");
+
+        btnXoaRong.setText("❌ Thoát");
+        
+        btnXoaRong.addActionListener(this);
+        
+        // Cấu hình bảng
+        tieuDeCot = new String[] {"Mã tài khoản", "Tên đăng nhập", "Mật khẩu", "Chức vụ"};
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        table.setRowHeight(30);
+        
+        taoThongTin();
+
+	    btnThem.addActionListener(e -> themTaiKhoan(textFields));
+        
+        
+        
+        
+
+        // Kết nối DAO
+        taiKhoanDAO = new dao_taiKhoan();
+        loadData();
+
+     
+    }
+
+    private void loadData() {
+        
+        tableModel.setRowCount(0);
+
+        
+        ArrayList<ent_taiKhoan> danhSachTaiKhoan = taiKhoanDAO.getAllTaiKhoan();
+        for (ent_taiKhoan tk : danhSachTaiKhoan) {
+            tableModel.addRow(new Object[]{
+               
+                tk.getMaTK(),
+                tk.getTenDangNhap(),
+                tk.getMatKhau(),
+                tk.getChucVu()  
+            });
+        }
+    }
+    private void themTaiKhoan(ArrayList<JTextField> textFields) {
+        if (textFields.size() < 4) {
+            JOptionPane.showMessageDialog(this, "Không đủ thông tin để thêm tài khoản!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String maNV = textFields.get(0).getText().trim();
+        String tenDN = textFields.get(1).getText().trim();
+        String matKhau = textFields.get(2).getText().trim();
+        String chucVu = textFields.get(3).getText().trim();
+
+        // Kiểm tra đầu vào
+        if (maNV.isEmpty() || tenDN.isEmpty() || matKhau.isEmpty() || chucVu.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Kiểm tra xem tên đăng nhập đã tồn tại chưa
+        if (taiKhoanDAO.isUserNameExists(tenDN)) {
+            JOptionPane.showMessageDialog(this, "Tên đăng nhập đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Thêm tài khoản vào cơ sở dữ liệu
+        ent_taiKhoan taiKhoanMoi = new ent_taiKhoan(maNV, tenDN, matKhau, chucVu);
+        if (taiKhoanDAO.createTaiKhoan(taiKhoanMoi)) {
+            JOptionPane.showMessageDialog(this, "Thêm tài khoản thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            loadData(); // Cập nhật lại bảng
+            // Xóa dữ liệu trong các ô nhập sau khi thêm thành công
+            textFields.forEach(tf -> tf.setText(""));
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm tài khoản thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+
+    public static void main(String[] args) {
+        new frm_TaiKhoan();
+    }
+    public void actionPerformed(ActionEvent e) {
+	    if (e.getActionCommand().equals("❌ Thoát")) {
+	        this.dispose(); // Đóng cửa sổ hiện tại
+	        new frm_home(); // Mở lại trang Home
+	    }
+	}
+}

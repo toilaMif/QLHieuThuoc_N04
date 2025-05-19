@@ -1,0 +1,57 @@
+package frm_default;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+
+public class DashedTableExample {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
+
+    private static void createAndShowGUI() {
+        JFrame frame = new JFrame("Dashed Table Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        String[] columnNames = {"Tên Thuốc", "SL", "Đơn vị", "Đơn giá", "T.Tiền"};
+        Object[][] data = {
+                {"Paracetamol", "10", "Viên", "2,000", "20,000"},
+                {"Paracetamol", "10", "Viên", "2,000", "20,000"},
+                {"Paracetamol", "10", "Viên", "2,000", "20,000"},
+                {"Paracetamol", "10", "Viên", "2,000", "20,000"},
+                {"Paracetamol", "10", "Viên", "2,000", "20,000"}
+        };
+        
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(model) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof JComponent) {
+                    ((JComponent) c).setBorder(BorderFactory.createEmptyBorder(0, 0, 1, 0));
+                }
+                return c;
+            }
+        };
+
+        table.setShowGrid(false); // Ẩn viền bảng
+        table.setIntercellSpacing(new Dimension(0, 0));
+        table.setRowHeight(30);
+        
+        JTableHeader header = table.getTableHeader();
+        header.setFont(new Font("Arial", Font.BOLD, 14));
+        header.setBackground(Color.WHITE);
+        header.setBorder(BorderFactory.createEmptyBorder()); // Tắt viền tiêu đề
+        
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Ẩn viền ngoài cùng
+        
+        frame.add(scrollPane);
+        frame.setSize(500, 300);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+}
+

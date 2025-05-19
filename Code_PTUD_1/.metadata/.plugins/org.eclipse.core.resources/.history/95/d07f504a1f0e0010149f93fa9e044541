@@ -1,0 +1,20 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietHoaDon extends frm_default3 {
+	public frm_ChiTietHoaDon() {
+		setTitle("Chi Tiếc Hóa Đơn");
+		jlTieuDeTrang.setText("Chi Tiếc Hóa Đơn");
+		
+		tieuDeCot  = new String[] {"Mã Hóa Đơn", "Tên thuốc", "Số lượng", "Đơn vị", "Giá Bán"};
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		taoThongTin();
+		}
+
+	public static void main(String[] args) {
+		new frm_ChiTietHoaDon();
+	}
+}

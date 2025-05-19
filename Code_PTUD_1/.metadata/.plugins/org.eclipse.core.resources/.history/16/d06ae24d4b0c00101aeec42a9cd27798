@@ -1,0 +1,22 @@
+package entity;
+
+public class taiKhoan {
+		 private String maTK;
+		 private String maKhau;
+		 private String tenDangNhap;
+		public taiKhoan(String maTK, String maKhau, String tenDangNhap) {
+			super();
+			this.maTK = maTK;
+			this.maKhau = maKhau;
+			this.tenDangNhap = tenDangNhap;
+		}
+		public taiKhoan() {
+			super();
+		}
+		public taiKhoan(String maTK) {
+			super();
+			this.maTK = maTK;
+		}
+		 
+		 
+}

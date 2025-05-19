@@ -1,0 +1,57 @@
+package entity;
+
+import java.util.Objects;
+
+public class ent_taiKhoan {
+		 private String maTK;
+		 private String maKhau;
+		 private String tenDangNhap;
+		 private String chucVu;
+		
+		public String getMaTK() {
+			return maTK;
+		}
+		public void setMaTK(String maTK) {
+			this.maTK = maTK;
+		}
+		public String getMaKhau() {
+			return maKhau;
+		}
+		public void setMaKhau(String maKhau) {
+			this.maKhau = maKhau;
+		}
+		public String getTenDangNhap() {
+			return tenDangNhap;
+		}
+		public void setTenDangNhap(String tenDangNhap) {
+			this.tenDangNhap = tenDangNhap;
+		}
+		public String getChucVu() {
+			return chucVu;
+		}
+		public void setChucVu(String chucVu) {
+			this.chucVu = chucVu;
+		}
+		public ent_taiKhoan() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		public ent_taiKhoan(String maTK, String maKhau, String tenDangNhap, String chucVu) {
+			super();
+			this.maTK = maTK;
+			this.maKhau = maKhau;
+			this.tenDangNhap = tenDangNhap;
+			this.chucVu = chucVu;
+		}
+		public ent_taiKhoan(String maTK) {
+			super();
+			this.maTK = maTK;
+		}
+		
+		
+		
+		
+		
+		 
+		 
+}

@@ -1,0 +1,30 @@
+package frm;
+
+import java.awt.FlowLayout;
+
+import frm_default.frm_default2;
+import hieuUng.ImageResizer;
+
+public class frm_keThuoc extends frm_default2 {
+	public frm_keThuoc() {
+
+		setTitle("Kệ thuốc");
+		jTenTrang.setText("Kệ thuốc");
+		jTenTrang.setIcon(ImageResizer.resizeImage("/image/menuKeThuoc.png", 50, 50));
+
+		jpHead.setLayout(new FlowLayout(FlowLayout.CENTER, 62, 10));
+		timkiem1.setText("Mã Kệ");
+		timkiem2.setText("Tên kệ");
+
+		tieuDeCot = new String[] { "Mã Kệ", "Tên kệ", "Sức chứa tối đa", "Số lượng thuốc" };
+
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+
+		table.setRowHeight(30);
+	}
+
+	public static void main(String[] args) {
+		new frm_keThuoc();
+	}
+}

@@ -1,0 +1,295 @@
+package frm;
+
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import dao.dao_khachHang;
+import entity.ent_khachHang;
+import frm_default.frm_default3;
+
+public class frm_ChiTietKhachHang extends frm_default3 implements ActionListener, MouseListener{
+	private dao_khachHang khachHangDAO;
+
+	public frm_ChiTietKhachHang() {
+		setTitle("Chi Tiết Khách Hàng");
+		jlTieuDeTrang.setText("Chi Tiết Khách Hàng");
+
+		tieuDeCot = new String[] { "Mã khách hàng", "Họ và tên", "Số điện thoại", "Giới tính" };
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		table.addMouseListener(this);
+		taoThongTin();
+
+		
+		khachHangDAO = new dao_khachHang();
+		loadData();
+		
+		btnSua.addActionListener(this);
+		btnThem.addActionListener(this);
+		btnThemAnh.addActionListener(this);
+		btnImport.addActionListener(this);
+		btnLuu.addActionListener(this);
+	}
+	public frm_ChiTietKhachHang(String maKh, String hoTen, String soDT, String gioiTinh) {
+	    this(); 
+	    
+	    Component[] components = thongtin.getComponents();
+	    int fieldIndex = 0;
+	    
+	    String[] data = { maKh, hoTen, soDT, gioiTinh };
+
+	    for (Component comp : components) {
+	        if (comp instanceof JTextField) {
+	            JTextField textField = (JTextField) comp;
+	            textField.setText(data[fieldIndex]); 
+	            fieldIndex++;
+	        }
+	    }
+	    checkAndHighlightRow();
+	}
+
+
+	private void loadData() {
+
+		tableModel.setRowCount(0);
+
+		ArrayList<ent_khachHang> danhSachKhachHang = khachHangDAO.getAllKhachHang();
+		for (ent_khachHang kh : danhSachKhachHang) {
+			tableModel.addRow(new Object[] {
+
+					kh.getMaKh(), kh.getHoTen(), kh.getsDT(), kh.getGioiTinh() });
+		}
+	}
+
+	public static void main(String[] args) {
+		new frm_ChiTietKhachHang();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	    int row = table.getSelectedRow();
+	    if (row != -1) { 
+	        Component[] components = thongtin.getComponents();
+	        int fieldIndex = 0;
+
+	        for (Component comp : components) {
+	            if (comp instanceof JTextField) {
+	                JTextField textField = (JTextField) comp;
+	                textField.setText(table.getValueAt(row, fieldIndex).toString()); 
+	                fieldIndex++;
+	            }
+	        }
+	    }
+	}
+	public void checkAndHighlightRow() {
+	    System.out.println("checkAndHighlightRow");
+
+	    JTextField maKhField = fieldMap.get("mãkháchhàng");
+	    JTextField hoTenField = fieldMap.get("họvàtên");
+	    JTextField sDTField = fieldMap.get("sốđiệnthoại");
+	    JTextField gioiTinhField = fieldMap.get("giớitính");
+
+	    if (maKhField == null || hoTenField == null || sDTField == null || gioiTinhField == null) {
+	        System.out.println("Lỗi: Không tìm thấy một hoặc nhiều JTextField!");
+	        return;
+	    }
+
+	    String maKh = maKhField.getText().trim();
+	    String hoTen = hoTenField.getText().trim();
+	    String sDT = sDTField.getText().trim();
+	    String gioiTinh = gioiTinhField.getText().trim();
+
+	    System.out.println("Mã khách hàng: " + maKh);
+	    System.out.println("Họ tên: " + hoTen);
+	    System.out.println("Số điện thoại: " + sDT);
+	    System.out.println("Giới tính: " + gioiTinh);
+
+	    boolean found = false;
+
+	    for (int i = 0; i < table.getRowCount(); i++) {
+	        String maKhTable = (table.getValueAt(i, 0) != null) ? table.getValueAt(i, 0).toString().trim() : "";
+	        String hoTenTable = (table.getValueAt(i, 1) != null) ? table.getValueAt(i, 1).toString().trim() : "";
+	        String sDTTable = (table.getValueAt(i, 2) != null) ? table.getValueAt(i, 2).toString().trim() : "";
+	        String gioiTinhTable = (table.getValueAt(i, 3) != null) ? table.getValueAt(i, 3).toString().trim() : "";
+
+	        boolean isMatch = true;
+
+	        if (!maKh.isEmpty() && !maKh.equals(maKhTable)) isMatch = false;
+	        if (!hoTen.isEmpty() && !hoTen.equals(hoTenTable)) isMatch = false;
+	        if (!sDT.isEmpty() && !sDT.equals(sDTTable)) isMatch = false;
+	        if (!gioiTinh.isEmpty() && !gioiTinh.equals(gioiTinhTable)) isMatch = false;
+
+	        if (isMatch) {
+	            table.setRowSelectionInterval(i, i);
+	            table.scrollRectToVisible(table.getCellRect(i, 0, true));
+	            found = true;
+	            break;
+	        }
+	    }
+
+	    if (!found) {
+	        JOptionPane.showMessageDialog(null, "Không tìm thấy khách hàng phù hợp!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+	    }
+	}
+
+
+
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		super.actionPerformed(e);
+		Object o = e.getSource();
+		if (o.equals(btnXoaRong)) {
+	        this.dispose(); 
+	        new frm_KhachHang(); 
+	    }else if (o.equals(btnLuu)) {
+	        System.out.println("Luu");
+
+	        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn lưu dữ liệu?", "Xác nhận lưu", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	        
+	        if (confirm == JOptionPane.YES_OPTION) {
+	            for (int i = 0; i < table.getRowCount(); i++) {
+	                String maKh = table.getValueAt(i, 0).toString();
+	                String hoTen = table.getValueAt(i, 1).toString();
+	                String sDT = table.getValueAt(i, 2).toString();
+	                String gioiTinh = table.getValueAt(i, 3).toString();
+	                
+	                ent_khachHang kh = khachHangDAO.getKhachHangByMa(maKh);  
+	                
+	                if (kh != null) {
+	                    boolean hasChanges = false;
+	                    
+	                    if (!hoTen.equals(kh.getHoTen())) {
+	                        hasChanges = true;
+	                    }
+	                    if (!sDT.equals(kh.getsDT())) {
+	                        hasChanges = true;
+	                    }
+	                    if (!gioiTinh.equals(kh.getGioiTinh())) {
+	                        hasChanges = true;
+	                    }
+	                    
+	                    if (hasChanges) {
+	                        kh.setHoTen(hoTen);
+	                        kh.setsDT(sDT);
+	                        kh.setGioiTinh(gioiTinh);
+	                        
+	                        boolean isUpdated = khachHangDAO.updateKhachHang(kh);
+	                        
+	                        if (isUpdated) {
+	                            System.out.println("Cập nhật khách hàng: " + maKh + " thành công.");
+	                        } else {
+	                            System.out.println("Cập nhật khách hàng: " + maKh + " thất bại.");
+	                        }
+	                    }
+	                }
+	            }
+
+	            loadData();
+	            JOptionPane.showMessageDialog(this, "Dữ liệu đã được lưu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+	        } else {
+	            System.out.println("Người dùng đã hủy thao tác lưu.");
+	        }
+	    }
+else if (o.equals(btnImport)) {
+	        System.out.println("btnImport");
+	    }else if (o.equals(btnThemAnh)) {
+	        System.out.println("btnThemAnh");
+	    }else if (o.equals(btnThem)) {
+	        System.out.println("btnThem");
+	        
+	    }else if (o.equals(btnSua)) {
+	        System.out.println("Chỉnh sửa khách hàng");
+
+	        // Lấy hàng được chọn trong bảng
+	        int selectedRow = table.getSelectedRow();
+	        if (selectedRow == -1) {
+	            JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng cần sửa!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	            return;
+	        }
+
+	        // Lấy dữ liệu từ các JTextField trong panel thongtin
+	        Component[] components = thongtin.getComponents();
+	        ArrayList<String> data = new ArrayList<>();
+
+	        for (Component comp : components) {
+	            if (comp instanceof JTextField) {
+	                JTextField textField = (JTextField) comp;
+	                data.add(textField.getText().trim());
+	            }
+	        }
+
+	        // Kiểm tra nếu có đủ dữ liệu
+	        if (data.size() == 4) {
+	            String maKh = data.get(0);
+	            String hoTen = data.get(1);
+	            String sDT = data.get(2);
+	            String gioiTinh = data.get(3);
+
+	            // Kiểm tra xem các trường có bị trống không
+	            if (maKh.isEmpty() || hoTen.isEmpty() || sDT.isEmpty() || gioiTinh.isEmpty()) {
+	                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	                return;
+	            }
+
+	            // Hộp thoại xác nhận sửa thông tin
+	            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa thông tin khách hàng này?", 
+	                    "Xác nhận sửa", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+	            if (confirm == JOptionPane.YES_OPTION) {
+	                // Cập nhật dữ liệu trên bảng
+	                tableModel.setValueAt(hoTen, selectedRow, 1);
+	                tableModel.setValueAt(sDT, selectedRow, 2);
+	                tableModel.setValueAt(gioiTinh, selectedRow, 3);
+
+	                // Cập nhật vào bảng
+	                ent_khachHang kh = khachHangDAO.getKhachHangByMa(maKh);
+	                if (kh != null) {
+	                    kh.setHoTen(hoTen);
+	                    kh.setsDT(sDT);
+	                    kh.setGioiTinh(gioiTinh);
+
+	                    
+	                }
+	            } else {
+	                System.out.println("Người dùng đã hủy thao tác sửa.");
+	            }
+	        } else {
+	            JOptionPane.showMessageDialog(this, "Không thể lấy đủ dữ liệu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	        }
+	    }
+
+	}
+}

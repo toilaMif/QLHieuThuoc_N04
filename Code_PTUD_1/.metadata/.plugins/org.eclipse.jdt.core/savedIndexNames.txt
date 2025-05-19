@@ -1,0 +1,6 @@
+INDEX VERSION 1.134+C:\Users\nguye\Downloads\Code_PTUD_1-20250403T103121Z-001\Code_PTUD_1\.metadata\.plugins\org.eclipse.jdt.core
+506523796.index
+36737484.index
+2870924925.index
+1865797976.index
+3413270776.index

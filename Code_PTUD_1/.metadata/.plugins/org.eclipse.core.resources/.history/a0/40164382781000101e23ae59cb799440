@@ -1,0 +1,20 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietNCC extends frm_default3 {
+	public frm_ChiTietNCC() {
+		setTitle("Chi Tiết Nhà Cung Cấp");
+		jlTieuDeTrang.setText("Chi Tiết Nhà Cung Cấp");
+		
+        tieuDeCot = new String[] {"Mã nhà cung cấp", "Tên Nhà cung cấp","Địa chỉ", "Số điện thoại"};
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+		table.setRowHeight(30);
+		taoThongTin();
+		}
+
+	public static void main(String[] args) {
+		new frm_ChiTietNCC();
+	}
+}

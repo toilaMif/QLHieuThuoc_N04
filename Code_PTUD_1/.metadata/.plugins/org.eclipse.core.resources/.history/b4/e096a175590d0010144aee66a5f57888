@@ -1,0 +1,54 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import frm_default.frm_default;
+import hieuUng.HoaDon;
+import hieuUng.ImageResizer;
+
+public class frm_LapHoaDon extends frm_default{
+	private HoaDon hoaDon;
+	private JButton jbtnInHoaDon;
+	private JButton jbtnXoaRong;
+	public frm_LapHoaDon() {
+		setTitle("Lập Hóa Đơn");
+		jTenTrang.setText("Lập Hóa Đơn");
+		jTenTrang.setIcon(ImageResizer.resizeImage("/image/menuHoaDon.png", 50, 50));
+		
+		
+		hoaDon = new HoaDon ();
+		hoaDon.setCornerRadius(50);
+		hoaDon.setBounds(20, 125, 310, 550);
+		hoaDon.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		hoaDon.setBounds(20, 130, 310, 550);
+		jpWest.add(hoaDon);
+		
+		jbtnInHoaDon = new JButton("In hóa đơn");
+		jbtnInHoaDon.setBackground(Color.red);
+		jbtnInHoaDon.setBounds(50, 690, 120, 35);
+		jpWest.add(jbtnInHoaDon);
+		jbtnXoaRong = new JButton("Xóa Rỗng");
+		jbtnXoaRong.setBackground(Color.red);
+		jbtnXoaRong.setBounds(180, 690, 120, 35);
+		jbtnXoaRong.setFocusPainted(false);
+		jbtnXoaRong.setContentAreaFilled(false);
+		jbtnXoaRong.setOpaque(true);
+		jbtnXoaRong.addActionListener(this);
+		
+		jpWest.add(jbtnXoaRong);
+		jpWest.revalidate();
+		jpWest.repaint();
+		
+		
+	}
+public static void main(String[] args) {
+	new frm_LapHoaDon();
+}
+}

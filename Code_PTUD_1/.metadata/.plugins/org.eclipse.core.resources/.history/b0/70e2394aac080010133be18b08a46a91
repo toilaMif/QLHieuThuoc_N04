@@ -1,0 +1,319 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import hieuUng.GradientPanel;
+import hieuUng.RoundedTextField;
+import hieuUng.RoundedButtonUI;
+import hieuUng.nutBam;
+import hieuUng.theGioiThieu;
+
+public class frm_default2 extends JFrame implements ActionListener, MouseListener {
+	private GradientPanel jpThanhCongCu;
+	private GradientPanel jpBangChinh;
+	private JLabel jTenTrang;
+	private JLabel jThoiGian;
+	private JPanel jpTheGT;
+	private JPanel jpBody;
+	private JPanel jpHead;
+	private JLabel timkiem1;
+	private JTextField jtftimkiem1;
+	private JTextField jtftimkiem2;
+	private JLabel timkiem2;
+
+	public frm_default2() {
+//		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setSize(1000,500);
+		setTitle("Default2");
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		getContentPane().setBackground(new Color(0x013034));
+		setResizable(false);
+		getContentPane().setLayout(null);
+
+		jpThanhCongCu = new GradientPanel();
+		jpThanhCongCu.setGradientColors(Color.white, Color.white);
+		jpThanhCongCu.setCornerRadius(90);
+		jpThanhCongCu.setLayout(null);
+
+		// tên trang
+		jTenTrang = new JLabel("Tên trang");
+		jTenTrang.setForeground(Color.black);
+		jTenTrang.setFont(new Font("Arial", Font.BOLD, 36));
+		jTenTrang.setBounds(60, 10, 200, 50);
+		jpThanhCongCu.add(jTenTrang);
+
+		// Ngày giờ
+		jThoiGian = new JLabel();
+		jThoiGian.setForeground(Color.black);
+		jThoiGian.setFont(new Font("Arial", Font.PLAIN, 13));
+		jThoiGian.setBounds(75, 50, 500, 30);
+		jpThanhCongCu.add(jThoiGian);
+
+		jpTheGT = new JPanel();
+		jpTheGT.setOpaque(false);
+
+		jpTheGT.setBounds(1100, 0, 350, 100);
+		jpTheGT.setLayout(new FlowLayout());
+
+		// Tạo avatar
+		ImageIcon imgAVT = new ImageIcon(ClassLoader.getSystemResource("image/AnhThe.jpg"));
+		Image imgTheGioiThieu = imgAVT.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+
+		theGioiThieu theGioiThieuPanel = new theGioiThieu(imgTheGioiThieu, "Nguyễn Thành Trung", "Nhân Viên");
+		jpTheGT.add(theGioiThieuPanel);
+		jpThanhCongCu.add(jpTheGT);
+
+		// Thông báo
+		// Load ảnh chuông thông báo
+		ImageIcon iconChuong = new ImageIcon(ClassLoader.getSystemResource("image/Chuông.png"));
+		Image imgchuong = iconChuong.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon scaledIcon = new ImageIcon(imgchuong);
+
+		// Tạo nút thông báo
+		JButton jThongbao = new JButton(scaledIcon);
+		jThongbao.setBounds(1000, 7, 70, 70);
+		jThongbao.setOpaque(false);
+		jThongbao.setBorderPainted(false);
+		jThongbao.setFocusPainted(false);
+		jThongbao.setContentAreaFilled(false);
+		jThongbao.setUI(new RoundedButtonUI(100));
+
+		jpThanhCongCu.add(jThongbao);
+
+		getContentPane().add(jpThanhCongCu);
+
+		jpBangChinh = new GradientPanel();
+		jpBangChinh.setLayout(null);
+		jpBangChinh.setGradientColors(Color.white, Color.white);
+		jpBangChinh.setBackground(Color.white);
+		jpBangChinh.setCornerRadius(55);
+
+		jpHead = new JPanel();
+		jpHead.setBackground(Color.white);
+		jpHead.setBorder(new LineBorder(new Color(0xBCD365), 2));
+
+		JButton btnTimKiem = createButton("Tìm Kiếm ", "image/bútchi.png", new Color(0x117C00));
+		btnTimKiem.setPreferredSize(new Dimension(150, 46));
+		JButton btnXoarong = createButton("Xóa Rỗng", "image/Chuông.png", new Color(0x007AF4));
+		btnXoarong.setPreferredSize(new Dimension(150, 46));
+		jpHead.setLayout(new FlowLayout(FlowLayout.CENTER, 45, 10)); // Căn nút về bên phải
+
+		timkiem1 = new JLabel("Tìm kiếm 1");
+		timkiem1.setFont(new Font("Arial", Font.BOLD, 20));
+		timkiem1.setForeground(Color.black);
+
+		jtftimkiem1 = new RoundedTextField(55);
+		jtftimkiem1.setPreferredSize(new Dimension(300, 48));
+		jtftimkiem1.setText("Nhập dữ liệu");
+
+		timkiem2 = new JLabel("Tìm kiếm 2");
+		timkiem2.setFont(new Font("Arial", Font.BOLD, 20));
+		timkiem2.setForeground(Color.black);
+
+		jtftimkiem2 = new RoundedTextField(55);
+		jtftimkiem2.setPreferredSize(new Dimension(300, 48));
+		jtftimkiem2.setText("Nhập dữ liệu");
+
+		jpHead.add(timkiem1);
+		jpHead.add(jtftimkiem1);
+		jpHead.add(timkiem2);
+		jpHead.add(jtftimkiem2);
+		jpHead.add(btnTimKiem);
+		jpHead.add(btnXoarong);
+
+		jpBody = new JPanel();
+		jpBody.setBackground(Color.white);
+		jpBody.setBorder(new LineBorder(new Color(0xBCD365), 2));
+
+		// Nút thoát
+		JButton jbtThoat = new JButton("Thoát");
+		jbtThoat.setFont(new Font("Arial", Font.BOLD, 30));
+		jbtThoat.setForeground(Color.white);
+		jbtThoat.setBackground(new Color(0x1F4842));
+		jbtThoat.setOpaque(false);
+		jbtThoat.setBorderPainted(false);
+		jbtThoat.setFocusPainted(false);
+		jbtThoat.setUI(new nutBam(30));
+
+		jbtThoat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				jbtThoat.setBackground(new Color(0xAABB55));
+				jbtThoat.repaint();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				jbtThoat.setBackground(new Color(0x1F4842));
+				jbtThoat.repaint();
+			}
+		});
+
+		JButton btnXem = createButton("Xem", "image/bútchi.png", new Color(70, 102, 255));
+		JButton btnSua = createButton("Sửa", "image/Chuông.png", new Color(180, 220, 85));
+		JButton btnXoa = createButton("Xóa", "image/thungrac.png", new Color(255, 50, 50));
+
+		// Thêm nút vào frame
+		jpBangChinh.add(btnXem);
+		jpBangChinh.add(btnSua);
+		jpBangChinh.add(btnXoa);
+
+		jpBangChinh.add(jbtThoat);
+		jpBangChinh.add(jpBody);
+		jpBangChinh.add(jpHead);
+		getContentPane().add(jpBangChinh);
+
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				int width = getWidth();
+				int height = getHeight();
+
+				jpBangChinh.setBounds(0 + (int) (getWidth() * 0.025), 40 + (int) (getHeight() * 0.1),
+						(int) (getWidth() * 0.95), (int) (getHeight() * 0.8));
+				jpThanhCongCu.setBounds(0 + (int) (getWidth() * 0.025), 20, (int) (getWidth() * 0.95),
+						(int) (getHeight() * 0.1));
+
+				jpHead.setBounds(0 + (int) (jpBangChinh.getWidth() * 0.025), 20, (int) (jpBangChinh.getWidth() * 0.95),
+						(int) (jpBangChinh.getHeight() * 0.1));
+				jpBody.setBounds(0 + (int) (jpBangChinh.getWidth() * 0.025), 40 + (int) (jpBangChinh.getHeight() * 0.1),
+						(int) (jpBangChinh.getWidth() * 0.95), (int) (jpBangChinh.getHeight() * 0.75));
+
+				btnXem.setBounds(970, jpBangChinh.getHeight() - 60, 150, 46);
+				btnXoa.setBounds(jpBody.getWidth() - 110, jpBangChinh.getHeight() - 60, 150, 46);
+				btnSua.setBounds(1130, jpBangChinh.getHeight() - 60, 150, 46);
+				jbtThoat.setBounds(30, jpBangChinh.getHeight() - 60, 170, 46);
+			}
+		});
+
+		setVisible(true);
+		updateTime(); // Gọi hàm cập nhật thời gian
+
+		jtftimkiem1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				jtftimkiem1.selectAll();
+			}
+		});
+		jtftimkiem2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				jtftimkiem2.selectAll();
+			}
+		});
+	}
+
+	private void updateTime() {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy -:- HH:mm:ss");
+				String dateString = formatter.format(new Date());
+				jThoiGian.setText(dateString);
+			}
+		}, 0, 1000); // Cập nhật mỗi giây
+	}
+
+	private static JButton createButton(String text, String iconPath, Color bgColor) {
+	    ImageIcon icon1 = null;
+	    try {
+	        java.net.URL imgURL = Thread.currentThread().getContextClassLoader().getResource(iconPath);
+	        if (imgURL != null) {
+	            icon1 = new ImageIcon(imgURL);
+	        } else {
+	            System.err.println("Không tìm thấy hình ảnh: " + iconPath);
+	            icon1 = new ImageIcon(); // Hình ảnh mặc định rỗng
+	        }
+	    } catch (Exception e) {
+	        System.err.println("Lỗi khi tải hình ảnh: " + e.getMessage());
+	        icon1 = new ImageIcon();
+	    }
+
+	    // Resize hình ảnh
+	    Image img1 = icon1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+	    JButton button = new JButton(text, new ImageIcon(img1));
+
+	    button.setBackground(bgColor);
+	    button.setForeground(Color.WHITE);
+	    button.setFont(new Font("Arial", Font.BOLD, 20));
+	    button.setFocusPainted(false);
+	    button.setBorderPainted(false);
+	    button.setOpaque(true);
+
+	    return button;
+	}
+
+
+	public static void main(String[] args) {
+		new frm_default2();
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

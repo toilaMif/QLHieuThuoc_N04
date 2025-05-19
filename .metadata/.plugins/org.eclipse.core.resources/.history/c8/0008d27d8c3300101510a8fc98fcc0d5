@@ -1,0 +1,129 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Image;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+
+import controller.ConnectDB;
+import entity.ent_taiKhoan;
+import frm_default.frm_default;
+import hieuUng.GradientPanel;
+import hieuUng.ImageResizer;
+import hieuUng.menu;
+import hieuUng.theGioiThieu;
+import frm_default.frm_default_ThongKe;
+import frm_default.frm_default_timKiem;
+import frm_default.frm_default2;
+
+public class frm_home extends frm_default {
+	public static String maTK_DaDangNhap;
+	private menu menuPanel;
+	private GradientPanel jpNenBangChinh;
+	private JLabel jlbanhnenbangchinh;
+
+	public frm_home() {
+		setTitle("Home");
+		jTenTrang.setText("Home");
+		jTenTrang.setIcon(ImageResizer.resizeImage("/image/home.png", 50, 50));
+		maTK_DaDangNhap= "CV001";
+		// Khai báo menuItems
+		if(maTK_DaDangNhap.equals("CV001")) {
+			Object[][] menuItems = {
+					{ "Thuốc", "/image/menuThuoc.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_Thuoc" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemThuoc" },
+									{ "Đặt thuốc", "/image/DatThuoc.png", "frm_DatThuoc" },
+									{ "Đổi thuốc", "/image/DoiThuoc.png", "frm_DoiThuoc" },
+									{ "Trả thuốc", "/image/TraThuoc.png", "frm_TraThuoc" },
+									{ "Thống kê", "/image/menuThongKe.png", "frm_ThongKeThuoc" } } },
+					{ "Hóa đơn", "/image/menuHoaDon.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_HoaDon" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemHoaDon" },
+									{ "Lập hóa đơn", "/image/menuTaoPhieu.png", "frm_LapHoaDon" },
+									{ "Thống kê", "/image/menuThongKe.png", "frm_ThongKeHoaDon" } } },
+					{ "Nhân viên", "/image/menuNhanVien.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_NhanVien" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemNhanVien" },
+									{ "Thống kê", "/image/menuThongKe.png", "frm_ThongKeNhanVien" } } },
+					{ "Khách hàng", "/image/menuKhachHang.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_KhachHang" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemKhachHang" },
+									{ "Thống kê", "/image/menuThongKe.png", "frm_ThongKeKhachHang" } } },
+					{ "Nhà cung cấp", "/image/menuNCC.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_NhaCungCap" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemNhaCungCap" } } },
+					{ "Kệ thuốc", "/image/menuKeThuoc.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_keThuoc" },
+									{ "Đặt cảnh báo", "/image/CanhBao.png", "frm_DatCanhBao" },
+									{ "Gán thuốc", "/image/GanKe.png", "frm_GanThuoc" } } },
+					{ "Phiếu nhập hàng", "/image/munuPhieuNH.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_PhieuNhapHang" },
+									{ "Lập phiếu nhập", "/image/menuTaoPhieu.png", "frm_LapPhieuNhap" } } },
+					{ "Tài khoản", "/image/menuTaiKhoan.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_TaiKhoan" } } } };
+			
+			 menuPanel = new menu(menuItems);
+		}else {
+			Object[][] menuItems = {
+					{ "Thuốc", "/image/menuThuoc.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_Thuoc" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemThuoc" },
+									{ "Đặt thuốc", "/image/bútchi.png", "frm_DatThuoc" },
+									{ "Đổi thuốc", "/image/bútchi.png", "frm_DoiThuoc" },
+									{ "Trả thuốc", "/image/bútchi.png", "frm_TraThuoc" },
+									 } },
+					{ "Hóa đơn", "/image/menuHoaDon.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_HoaDon" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemHoaDon" },
+									{ "Lập hóa đơn", "/image/menuTaoPhieu.png", "frm_LapHoaDon" },
+									 } },
+					
+					{ "Khách hàng", "/image/menuKhachHang.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_KhachHang" },
+									{ "Tìm kiếm", "/image/menuSearch.png", "frm_TimKiemKhachHang" },
+									 } },
+					
+					{ "Kệ thuốc", "/image/menuKeThuoc.png",
+							new Object[][] { { "Cập nhật", "/image/bútchi.png", "frm_keThuoc" },
+									{ "Đặt cảnh báo", "/image/bútchi.png", "frm_DatCanhBao" },
+									{ "Gán thuốc", "/image/bútchi.png", "frm_GanThuoc" } } },
+					 };
+			
+			 menuPanel = new menu(menuItems);
+		}
+
+		
+
+		JScrollPane scrollPane = new JScrollPane(menuPanel);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.setBounds(10, 120, 330, 550);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+		jpWest.add(scrollPane, BorderLayout.CENTER);
+		
+		jpNenBangChinh = new GradientPanel();
+		jlbanhnenbangchinh = new JLabel("");
+		jlbanhnenbangchinh.setIcon(ImageResizer.resizeImage("/image/anhnenhome.jpg", 500, 500));
+		jpNenBangChinh.add(jlbanhnenbangchinh);
+		
+		jpBangChinh.add(jpNenBangChinh);
+		
+	}
+
+	
+
+	
+
+	public static void main(String[] args) {
+		new frm_home();
+	}
+}

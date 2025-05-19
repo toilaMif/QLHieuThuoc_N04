@@ -1,0 +1,110 @@
+package hieuUng;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+
+public class HoaDon extends JPanel {
+    private JLabel lblTotal;
+    private JLabel lblVat;
+
+    public HoaDon() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        setBorder(BorderFactory.createLineBorder(new Color(0x013034), 10));
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(Color.WHITE);
+        add(panel, BorderLayout.NORTH);
+
+        JLabel lblTitle = new JLabel("Nhà thuốc TMT", JLabel.CENTER);
+        lblTitle.setFont(new Font("Arial", Font.BOLD, 32));
+        panel.add(lblTitle, BorderLayout.NORTH);
+
+        JLabel lblSubTitle = new JLabel("Trường IUH - Đại học Công nghiệp TP.HCM\nPhần mềm quản lý hiệu thuốc", JLabel.CENTER);
+        lblSubTitle.setFont(new Font("Arial", Font.PLAIN, 10));
+        panel.add(lblSubTitle, BorderLayout.CENTER);
+
+        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+        panel.add(separator, BorderLayout.SOUTH);
+
+        JPanel panelContent = new JPanel(new BorderLayout());
+        panelContent.setBackground(Color.WHITE);
+        add(panelContent, BorderLayout.CENTER);
+
+        String[] columnNames = {"Tên Thuốc", "SL", "Đơn vị", "Đơn giá", "T.Tiền"};
+        Object[][] data = {
+                {"Paracetamol", "10", "Viên", "2000", "20000"},
+                {"Ibuprofen", "5", "Viên", "3000", "15000"},
+                {"Amoxicillin", "8", "Viên", "5000", "40000"},
+                {"Vitamin C", "12", "Viên", "1500", "18000"}
+        };
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(model) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof JComponent) {
+                    ((JComponent) c).setBorder(BorderFactory.createEmptyBorder(0, 0, 1, 0));
+                }
+                return c;
+            }
+        };
+
+        table.setShowGrid(false);
+        table.setIntercellSpacing(new Dimension(0, 0));
+        table.setRowHeight(30);
+        table.setFont(new Font("Arial", Font.PLAIN, 12));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        panelContent.add(scrollPane, BorderLayout.CENTER);
+
+        lblTotal = new JLabel("Tổng tiền: 0 VND", JLabel.RIGHT);
+        lblTotal.setFont(new Font("Arial", Font.BOLD, 14));
+        lblVat = new JLabel("VAT (10%): 0 VND", JLabel.RIGHT);
+        lblVat.setFont(new Font("Arial", Font.BOLD, 14));
+
+        JPanel panelFooter = new JPanel(new GridLayout(2, 1));
+        panelFooter.setBackground(Color.WHITE);
+        panelFooter.add(lblTotal);
+        panelFooter.add(lblVat);
+        panelContent.add(panelFooter, BorderLayout.SOUTH);
+
+        updateTotalAmount(table);
+    }
+
+    private void updateTotalAmount(JTable table) {
+        double total = 0;
+        int lastColumnIndex = table.getColumnCount() - 1;
+
+        for (int i = 0; i < table.getRowCount(); i++) {
+            try {
+                total += Double.parseDouble(table.getValueAt(i, lastColumnIndex).toString());
+            } catch (Exception e) {
+                System.err.println("Lỗi chuyển đổi số ở dòng " + (i + 1));
+            }
+        }
+
+        double vat = total * 0.1;
+        lblTotal.setText(String.format("Tổng tiền: %,.0f VND", total));
+        lblVat.setText(String.format("VAT (10%): %,.0f VND", vat));
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Hóa Đơn");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 600);
+        frame.setLocationRelativeTo(null);
+        frame.add(new HoaDon());
+        frame.setVisible(true);
+    }
+}

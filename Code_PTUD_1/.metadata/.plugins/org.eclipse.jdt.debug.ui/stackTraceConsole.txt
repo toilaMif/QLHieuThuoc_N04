@@ -1,0 +1,2 @@
+setCornerRadius(30);
+    	setGradientColors(Color.WHITE,Color.WHITE);

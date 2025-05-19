@@ -1,0 +1,11 @@
+package dao;
+
+import java.util.ArrayList;
+
+public class taiKhoan {
+	public ArrayList<dao_taiKhoan> listTaiKhoan;
+	
+	public taiKhoan() {
+		// TODO Auto-generated constructor stub
+	}
+}

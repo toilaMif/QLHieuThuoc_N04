@@ -1,0 +1,60 @@
+package hieuUng;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class TestPOI {
+    public static void main(String[] args) {
+        // Tạo workbook
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        // Tạo một sheet mới
+        Sheet sheet = workbook.createSheet("Danh sách nhân viên");
+        
+        // Tạo tiêu đề cột
+        String[] columns = {"ID", "Họ tên", "Chức vụ", "Lương"};
+        Row headerRow = sheet.createRow(0);
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+        }
+
+        // Dữ liệu mẫu
+        Object[][] data = {
+            {1, "Nguyễn Văn A", "Giám đốc", 5000},
+            {2, "Trần Thị B", "Nhân viên", 3000},
+            {3, "Lê Văn C", "Trưởng phòng", 4000}
+        };
+
+        // Ghi dữ liệu vào các hàng tiếp theo
+        int rowNum = 1;
+        for (Object[] rowData : data) {
+            Row row = sheet.createRow(rowNum++);
+            for (int colNum = 0; colNum < rowData.length; colNum++) {
+                Cell cell = row.createCell(colNum);
+                if (rowData[colNum] instanceof String) {
+                    cell.setCellValue((String) rowData[colNum]);
+                } else if (rowData[colNum] instanceof Integer) {
+                    cell.setCellValue((Integer) rowData[colNum]);
+                }
+            }
+        }
+
+        // Ghi file Excel
+        try (FileOutputStream fileOut = new FileOutputStream("danh_sach_nhan_vien.xlsx")) {
+            workbook.write(fileOut);
+            System.out.println("✅ Xuất file Excel thành công!");
+        } catch (IOException e) {
+            System.out.println("❌ Lỗi khi ghi file: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        // Đóng workbook
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

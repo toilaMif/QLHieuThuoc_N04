@@ -1,0 +1,24 @@
+package frm;
+
+import java.awt.Font;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietNhanVien extends frm_default3 {
+	public frm_ChiTietNhanVien() {
+		setTitle("Chi Tiếc Nhân Viên");
+		jlTieuDeTrang.setText("Chi Tiếc Nhân Viên");
+		tieuDeCot = new String[] {"Mã nhân viên", "Họ tên", "Số điện thoại", "Email","Ngày sinh","Ngày vào làm","Chức Vụ", "Giới Tính"};
+		header.setFont(new Font("Arial", Font.BOLD, 20));
+		
+		tableModel.setColumnIdentifiers(tieuDeCot);
+		tableModel.setRowCount(0);
+
+		table.setRowHeight(30);
+		taoThongTin();
+	}
+
+	public static void main(String[] args) {
+		new frm_ChiTietNhanVien();
+	}
+}

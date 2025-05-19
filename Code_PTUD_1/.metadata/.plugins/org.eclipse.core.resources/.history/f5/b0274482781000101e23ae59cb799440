@@ -1,0 +1,32 @@
+package frm;
+
+import java.awt.FlowLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import frm_default.frm_default2;
+import hieuUng.ImageResizer;
+
+public class frm_KhachHang extends frm_default2 {
+    
+    public frm_KhachHang() {
+        setTitle("Khách Hàng");
+        jTenTrang.setText("Khách Hàng");
+        jTenTrang.setIcon(ImageResizer.resizeImage("/image/menuKhachHang.png", 50, 50));
+        
+        
+        timkiem1.setText("Họ tên khách hàng");
+        timkiem2.setText("Số điện thoại");
+        jpHead.setLayout(new FlowLayout(FlowLayout.CENTER, 30,10));
+        tieuDeCot = new String[] {"Mã khách hàng", "Họ và tên", "Số điện thoại", "Giới tính"};
+        
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        tableModel.setRowCount(0); 
+        
+        table.setRowHeight(30); 
+    }
+
+    public static void main(String[] args) {
+        new frm_KhachHang();
+    }
+}

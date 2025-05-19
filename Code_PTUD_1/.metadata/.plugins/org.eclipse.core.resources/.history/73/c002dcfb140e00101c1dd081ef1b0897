@@ -1,0 +1,40 @@
+package controller;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConnectDB {
+    private static Connection con = null;
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databasename=QuanLyHieuThuoc";
+    private static final String USER = "sa";
+    private static final String PASSWORD = "123!@#";
+
+    private ConnectDB() {}
+
+    public static Connection getConnection() {
+        if (con == null) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                con = DriverManager.getConnection(URL, USER, PASSWORD);
+                System.out.println("Kết nối thành công!");
+            } catch (ClassNotFoundException e) {
+                System.err.println("Không tìm thấy driver JDBC: " + e.getMessage());
+            } catch (SQLException e) {
+                System.err.println("Lỗi kết nối cơ sở dữ liệu: " + e.getMessage());
+            }
+        }
+        return con;
+    }
+
+    public static void disconnect() {
+        if (con != null) {
+            try (Connection c = con) { // Tự động đóng kết nối
+                con = null;
+                System.out.println("Ngắt kết nối thành công.");
+            } catch (SQLException e) {
+                System.err.println("Lỗi khi đóng kết nối: " + e.getMessage());
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JComboBox;
+
+import frm_default.frm_default_ThongKe;
+
+public class frm_ThongKeThuoc extends frm_default_ThongKe{
+	public frm_ThongKeThuoc() {
+		// lọc
+		lblHinhThuc.setText("Phương thức lọc: ");
+		String[] hinhThuc = {"Tồn kho", "Bán chạy"};
+		cbHinhThuc = new JComboBox<>(hinhThuc);
+		
+		panelHinhThuc.add(cbHinhThuc, BorderLayout.CENTER);
+		
+		// bang lọc
+		tieuDeCot = new String[] { "Mã thuốc", "Tên thuốc", "Đơn vị", "Danh mục", "Giá nhập", "Giá bán", "Hạn sử dụng", "Nhà cung cấp", "Xuất xứ" };
+        header.setFont(new Font("Arial", Font.BOLD, 18));
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        tableModel.setRowCount(0);
+        
+        
+	}
+public static void main(String[] args) {
+	new frm_ThongKeThuoc();
+}
+@Override
+public void actionPerformed(ActionEvent e) {
+	super.actionPerformed(e);
+	Object o = e.getSource();
+	if(o.equals(btnLoc)) {
+		System.out.println("lọc");
+	}
+}
+}

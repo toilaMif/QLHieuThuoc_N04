@@ -1,0 +1,98 @@
+package hieuUng;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+
+public class HoaDon extends JPanel {
+    private JLabel lblTotal;
+    private JLabel lblVAT;
+
+    public HoaDon() {
+        setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
+        setBorder(BorderFactory.createLineBorder(new Color(0x013034), 10));
+
+        JPanel panelContent = new JPanel(new BorderLayout());
+        panelContent.setBackground(Color.WHITE);
+        add(panelContent, BorderLayout.CENTER);
+
+        String[] columnNames = {"Tên Thuốc", "SL", "Đơn vị", "Đơn giá", "T.Tiền"};
+        Object[][] data = {
+                {"Paracetamol", "10", "Viên", "2000", "20000"},
+                {"Ibuprofen", "5", "Viên", "3000", "15000"},
+                {"Amoxicillin", "8", "Viên", "5000", "40000"}
+        };
+
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        JTable table = new JTable(model) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof JComponent) {
+                    ((JComponent) c).setBorder(BorderFactory.createEmptyBorder(0, 0, 1, 0));
+                }
+                return c;
+            }
+        };
+
+        table.setShowGrid(false);
+        table.setIntercellSpacing(new Dimension(0, 0));
+        table.setRowHeight(30);
+        table.setFont(new Font("Arial", Font.PLAIN, 12));
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        panelContent.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel panelFooter = new JPanel(new GridLayout(2, 2));
+        panelFooter.setBackground(Color.WHITE);
+        add(panelFooter, BorderLayout.SOUTH);
+
+        JLabel lblVATTitle = new JLabel("VAT (10%): ", JLabel.RIGHT);
+        lblVATTitle.setFont(new Font("Arial", Font.BOLD, 12));
+        panelFooter.add(lblVATTitle);
+        
+        lblVAT = new JLabel("0 VND", JLabel.LEFT);
+        panelFooter.add(lblVAT);
+        
+        JLabel lblTotalTitle = new JLabel("Tổng tiền: ", JLabel.RIGHT);
+        lblTotalTitle.setFont(new Font("Arial", Font.BOLD, 12));
+        panelFooter.add(lblTotalTitle);
+        
+        lblTotal = new JLabel("0 VND", JLabel.LEFT);
+        panelFooter.add(lblTotal);
+
+        updateTotalAmount(table);
+    }
+
+    private void updateTotalAmount(JTable table) {
+        double total = 0;
+        int lastColumnIndex = table.getColumnCount() - 1;
+
+        for (int i = 0; i < table.getRowCount(); i++) {
+            Object value = table.getValueAt(i, lastColumnIndex);
+            if (value != null) {
+                try {
+                    total += Double.parseDouble(value.toString().replace(",", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Lỗi chuyển đổi số: " + value);
+                }
+            }
+        }
+
+        double vat = total * 0.1;
+        lblTotal.setText(String.format("%,.0f VND", total));
+        lblVAT.setText(String.format("%,.0f VND", vat));
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Hóa Đơn");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 500);
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().add(new HoaDon());
+        frame.setVisible(true);
+    }
+}

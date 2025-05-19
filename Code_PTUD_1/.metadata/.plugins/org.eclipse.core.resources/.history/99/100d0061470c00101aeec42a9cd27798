@@ -1,0 +1,13 @@
+package frm;
+
+import frm_default.frm_default3;
+
+public class frm_ChiTietKe extends frm_default3{
+	public frm_ChiTietKe() {
+		setTitle("Chi tiết Kệ");
+		jlbTitle.setText("Chi tiết kệ");
+	}
+	public static void main(String[] args) {
+		new frm_ChiTietKe();
+	}
+}

@@ -1,0 +1,9 @@
+package frm;
+
+import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
+
+public class TestVLCJ {
+    public static void main(String[] args) {
+        System.out.println("Thư viện VLCJ đã được cài thành công!");
+    }
+}

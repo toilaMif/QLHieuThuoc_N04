@@ -1,0 +1,150 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import dao.dao_khachHang;
+import entity.ent_khachHang;
+import frm_default.frm_default_timKiem;
+import hieuUng.ImageResizer;
+import hieuUng.boGocComboBoxUI;
+import hieuUng.boGocTextField;
+
+public class frm_TimKiemHoaDon extends frm_default_timKiem {
+	private dao_khachHang khachHangDAO;
+	private JPanel jpaneNhap;
+	private boGocTextField textField;
+	private boGocTextField textField_1;
+	private boGocTextField textField_2;
+
+	public frm_TimKiemHoaDon() {
+
+		setTitle("Tìm kiếm");
+		jTenTrang.setText("Tìm kiếm");
+		jTenTrang.setIcon(ImageResizer.resizeImage("/image/menuHoaDon.png", 50, 50));
+		tieuDeCot = new String[] {"Mã hóa đơn", "Ngày lập", "Người lập", "Khách hàng","Thuế","Hình thức thanh toán","Tổng tiền"};
+        header.setFont(new Font("Arial", Font.BOLD, 18));
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        tableModel.setRowCount(0); 
+
+		
+
+		JPanel jpNhapThongTin = new JPanel();
+		jpNhapThongTin.setLayout(new GridLayout(1, 8, 15, 0));
+		jpNhapThongTin.setBackground(Color.white);
+
+		// Mã nhân viên
+		JPanel panelMaNV = new JPanel(new BorderLayout(5, 5));
+		panelMaNV.setBackground(Color.white);
+		JLabel lblMaNV = new JLabel("Mã nhân viên:");
+		boGocTextField textFieldMaNV = new boGocTextField(5);
+		textFieldMaNV.setColumns(10);
+		panelMaNV.add(lblMaNV, BorderLayout.NORTH);
+		panelMaNV.add(textFieldMaNV, BorderLayout.CENTER);
+
+		// Họ tên
+		JPanel panelHoTen = new JPanel(new BorderLayout(5, 5));
+		panelHoTen.setBackground(Color.white);
+		JLabel lblHoTen = new JLabel("Họ tên:");
+		boGocTextField textFieldHoTen = new boGocTextField(5);
+		textFieldHoTen.setColumns(10);
+		panelHoTen.add(lblHoTen, BorderLayout.NORTH);
+		panelHoTen.add(textFieldHoTen, BorderLayout.CENTER);
+
+		// Số điện thoại
+		JPanel panelSDT = new JPanel(new BorderLayout(5, 5));
+		panelSDT.setBackground(Color.white);
+		JLabel lblSDT = new JLabel("Số điện thoại:");
+		boGocTextField textFieldSDT = new boGocTextField(5);
+		textFieldSDT.setColumns(10);
+		panelSDT.add(lblSDT, BorderLayout.NORTH);
+		panelSDT.add(textFieldSDT, BorderLayout.CENTER);
+
+		// Email
+		JPanel panelEmail = new JPanel(new BorderLayout(5, 5));
+		panelEmail.setBackground(Color.white);
+		JLabel lblEmail = new JLabel("Email:");
+		boGocTextField textFieldEmail = new boGocTextField(5);
+		textFieldEmail.setColumns(10);
+		panelEmail.add(lblEmail, BorderLayout.NORTH);
+		panelEmail.add(textFieldEmail, BorderLayout.CENTER);
+
+		// Ngày sinh
+		JPanel panelNgaySinh = new JPanel(new BorderLayout(5, 5));
+		panelNgaySinh.setBackground(Color.white);
+		JLabel lblNgaySinh = new JLabel("Ngày sinh:");
+		boGocTextField textFieldNgaySinh = new boGocTextField(5);
+		textFieldNgaySinh.setColumns(10);
+		textFieldNgaySinh.setForeground(Color.GRAY);
+		panelNgaySinh.add(lblNgaySinh, BorderLayout.NORTH);
+		panelNgaySinh.add(textFieldNgaySinh, BorderLayout.CENTER);
+
+		// Ngày vào làm
+		JPanel panelNgayVao = new JPanel(new BorderLayout(5, 5));
+		panelNgayVao.setBackground(Color.white);
+		JLabel lblNgayVao = new JLabel("Ngày vào làm:");
+		boGocTextField textFieldNgayVao = new boGocTextField(5);
+		textFieldNgayVao.setColumns(10);
+		textFieldNgayVao.setForeground(Color.GRAY);
+		panelNgayVao.add(lblNgayVao, BorderLayout.NORTH);
+		panelNgayVao.add(textFieldNgayVao, BorderLayout.CENTER);
+
+		// Chức vụ - ComboBox
+		JPanel panelChucVu = new JPanel(new BorderLayout(5, 5));
+		panelChucVu.setBackground(Color.white);
+		JLabel lblChucVu = new JLabel("Chức vụ:");
+		JComboBox<String> comboBoxChucVu = new JComboBox<>();
+		comboBoxChucVu.addItem("Quản lý");
+		comboBoxChucVu.addItem("Nhân viên");
+		comboBoxChucVu.setUI(new boGocComboBoxUI());
+		comboBoxChucVu.setPreferredSize(new Dimension(200, 30));
+		comboBoxChucVu.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+		panelChucVu.add(lblChucVu, BorderLayout.NORTH);
+		panelChucVu.add(comboBoxChucVu, BorderLayout.CENTER);
+
+		// Giới tính - ComboBox
+		JPanel panelGioiTinh = new JPanel(new BorderLayout(5, 5));
+		panelGioiTinh.setBackground(Color.white);
+		JLabel lblGioiTinh = new JLabel("Giới tính:");
+		JComboBox<String> comboBoxGioiTinh = new JComboBox<>();
+		comboBoxGioiTinh.addItem("Nam");
+		comboBoxGioiTinh.addItem("Nữ");
+		comboBoxGioiTinh.setUI(new boGocComboBoxUI());
+		comboBoxGioiTinh.setPreferredSize(new Dimension(200, 30));
+		comboBoxGioiTinh.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+		panelGioiTinh.add(lblGioiTinh, BorderLayout.NORTH);
+		panelGioiTinh.add(comboBoxGioiTinh, BorderLayout.CENTER);
+
+		// Thêm tất cả vào jpNhapThongTin
+		jpNhapThongTin.add(panelMaNV);
+		jpNhapThongTin.add(panelHoTen);
+		jpNhapThongTin.add(panelSDT);
+		jpNhapThongTin.add(panelEmail);
+		jpNhapThongTin.add(panelNgaySinh);
+		jpNhapThongTin.add(panelNgayVao);
+		jpNhapThongTin.add(panelChucVu);
+		jpNhapThongTin.add(panelGioiTinh);
+
+		jpHead.add(jpNhapThongTin, BorderLayout.NORTH);
+
+
+	}
+
+	public static void main(String[] args) {
+		new frm_TimKiemHoaDon();
+	}
+
+	
+}

@@ -1,0 +1,130 @@
+package frm;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import hieuUng.GradientPanel;
+
+public class frm_default3_anh extends JFrame implements ActionListener, MouseListener {
+    private JLabel jlbTitle;
+    private DefaultTableModel tableModel;
+    private JTable table;
+    private JButton btnXoaRong, btnLuu, btnImport;
+
+    public frm_default3_anh() {
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setTitle("Default3");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.white);
+        setResizable(false);
+        getContentPane().setLayout(null);
+
+        GradientPanel jpThanhCongCu = new GradientPanel();
+        jpThanhCongCu.setGradientColors(new Color(173, 230, 106),new Color(173, 230, 106));
+        jpThanhCongCu.setCornerRadius(20);
+        jpThanhCongCu.setLayout(new BorderLayout());
+        jpThanhCongCu.setBackground(Color.white);
+
+        jlbTitle = new JLabel("Tiêu đề Trang", SwingConstants.CENTER);
+        jlbTitle.setForeground(Color.black);
+        jlbTitle.setFont(new Font("Arial", Font.BOLD, 60));
+        jpThanhCongCu.add(jlbTitle);
+
+        getContentPane().add(jpThanhCongCu);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(Color.white);
+        getContentPane().add(panel);
+        
+
+        String[] columnNames = {"Thông tin", "Nhập dữ liệu"};
+        tableModel = new DefaultTableModel(columnNames, 0);
+        table = new JTable(tableModel);
+        
+        //thêm thuộc tính
+        String giaTriThuocTinh1 ="Giá trị Thuộc tính 1";
+        tableModel.addRow(new Object[]{"Thuộc tính 1",giaTriThuocTinh1});
+        
+        JTableHeader header = table.getTableHeader();
+        header.setBackground(new Color(173, 230, 106));
+        header.setForeground(Color.BLACK);
+        header.setFont(new Font("Arial", Font.BOLD, 24));
+
+        table.setGridColor(new Color(0, 128, 0));
+        table.setShowGrid(true);
+        table.setIntercellSpacing(new Dimension(1, 1));
+        table.setRowHeight(25);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.red);
+        btnXoaRong = new JButton("❌ Xóa rỗng");
+        btnXoaRong.setBackground(Color.RED);
+        btnXoaRong.setForeground(Color.WHITE);
+        btnXoaRong.addActionListener(e -> clearTable());
+
+        btnLuu = new JButton("💾 Lưu");
+        btnLuu.setBackground(Color.BLUE);
+        btnLuu.setForeground(Color.WHITE);
+
+        btnImport = new JButton("📂 Import");
+        btnImport.setBackground(Color.BLUE);
+        btnImport.setForeground(Color.WHITE);
+
+        buttonPanel.add(btnXoaRong);
+        buttonPanel.add(btnLuu);
+        buttonPanel.add(btnImport);
+        getContentPane().add(buttonPanel);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(40, 183, 325, 568);
+        getContentPane().add(panel_1);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                jpThanhCongCu.setBounds((int) (getWidth() * 0.025), 20, (int) (getWidth() * 0.95), (int) (getHeight() * 0.15));
+                panel.setBounds((int) (getWidth() * 0.25), (int) (getHeight() * 0.15) + 50, (int) (getWidth() * 0.725), (int) (getHeight() * 0.65));
+                buttonPanel.setBounds((int) (getWidth() * 0.025), (int) (getHeight() * 0.65) + 200, (int) (getWidth() * 0.95), (int) (getHeight() * 0.05));
+            }
+        });
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new frm_default3_anh();
+    }
+
+    private void clearTable() {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                tableModel.setValueAt("", i, j);
+            }
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {}
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {}
+}
