@@ -1,0 +1,95 @@
+package frm;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
+
+import frm_default.frm_default;
+import hieuUng.GradientPanel;
+import hieuUng.HoaDon;
+import hieuUng.ImageResizer;
+
+public class frm_LapPhieuNhap extends frm_default{
+	private HoaDon hoaDon;
+	private JButton jbtnInHoaDon;
+	private JButton jbtnXoaRong;
+	private GradientPanel painKhungDieuKhien;
+	private JPanel bangSP;
+	public frm_LapPhieuNhap() {
+		super();
+		setTitle("Lập Phiếu Nhập Hàng");
+		jTenTrang.setText("Lập Phiếu Nhập Hàng");
+		jTenTrang.setIcon(ImageResizer.resizeImage("/image/munuPhieuNH.png", 50, 50));
+		jTenTrang.setFont(new Font("Arial", Font.BOLD, 30));
+		
+		hoaDon = new HoaDon ();
+		hoaDon.setCornerRadius(50);
+		hoaDon.setBounds(20, 125, 310, 550);
+		hoaDon.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		hoaDon.setBounds(20, 130, 310, 550);
+		jpWest.add(hoaDon,BorderLayout.CENTER);
+		
+		jbtnInHoaDon = new JButton("In hóa đơn");
+		jbtnInHoaDon.setBackground(new Color(173, 230, 106));
+		jbtnInHoaDon.setBounds(50, 690, 120, 45);
+		jbtnInHoaDon.setForeground(Color.WHITE);
+		jbtnInHoaDon.setFont(new Font("", Font.BOLD, 14));
+		jbtnInHoaDon.setFocusPainted(false);
+		jbtnInHoaDon.setContentAreaFilled(false);
+		jbtnInHoaDon.setOpaque(true);
+		jbtnInHoaDon.addActionListener(this);
+		
+		
+		jpWest.add(jbtnInHoaDon,BorderLayout.EAST);
+		jbtnXoaRong = new JButton("❌ Xóa Rỗng");
+		jbtnXoaRong.setBackground(Color.red);
+		jbtnXoaRong.setForeground(Color.WHITE);
+		jbtnXoaRong.setFont(new Font("", Font.BOLD, 14));
+		jbtnXoaRong.setBounds(180, 690, 120, 45);
+		jbtnXoaRong.setFocusPainted(false);
+		jbtnXoaRong.setContentAreaFilled(false);
+		jbtnXoaRong.setOpaque(true);
+		jbtnXoaRong.addActionListener(this);
+		
+		jpWest.add(jbtnXoaRong,BorderLayout.SOUTH);
+		jpWest.revalidate();
+		jpWest.repaint();
+		
+		painKhungDieuKhien = new GradientPanel();
+		painKhungDieuKhien.setCornerRadius(30);
+		painKhungDieuKhien.setGradientColors(Color.white, Color.white);
+		painKhungDieuKhien.setBorder(BorderFactory.createCompoundBorder(
+		    BorderFactory.createTitledBorder(
+		        BorderFactory.createLineBorder(new Color(180, 220, 85), 2),
+		        "Bảng Thông Tin",
+		        TitledBorder.LEADING, 
+		        TitledBorder.TOP, 
+		        new Font("Arial", Font.BOLD, 14),
+		        new Color(180, 220, 85)
+		    ),
+		    BorderFactory.createEmptyBorder(10, 10, 10, 10) // Thêm padding
+		));
+
+		painKhungDieuKhien.setPreferredSize(new Dimension(jpBangChinh.getPreferredSize().width - 20, 80));
+
+		jpBangChinh.setLayout(new BorderLayout()); // Dùng layout hợp lý hơn
+		jpBangChinh.add(painKhungDieuKhien, BorderLayout.NORTH);
+		
+		bangSP = new JPanel();
+		
+		
+		
+		
+	}
+public static void main(String[] args) {
+	new frm_LapPhieuNhap();
+}
+}

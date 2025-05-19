@@ -1,0 +1,42 @@
+package frm;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
+import dao.dao_KeThuoc;
+import entity.ent_KeThuoc;
+import frm_default.frm_default2;
+import hieuUng.ImageResizer;
+
+public class frm_HoaDon extends frm_default2 {
+    
+    public frm_HoaDon() {
+        setTitle("Hóa Đơn");
+        jTenTrang.setText("Hóa Đơn");
+        jTenTrang.setIcon(ImageResizer.resizeImage("/image/menuHoaDon.png", 50, 50));
+        
+        btnThem.setText("+ Lập Hóa Đơn");
+        btnThem.setFont(new Font("Arial", Font.BOLD, 20));
+        btnThem.setPreferredSize(new Dimension(180, 40));
+        timkiem1.setText("Mã hóa đơn");
+        timkiem2.setText("Tên khách hàng");
+        jpHead.setLayout(new FlowLayout(FlowLayout.CENTER, 30,10));
+        tieuDeCot = new String[] {"Mã hóa đơn", "Ngày lập", "Người lập", "Khách hàng","Thuế","Hình thức thanh toán","Tổng tiền"};
+        header.setFont(new Font("Arial", Font.BOLD, 18));
+        tableModel.setColumnIdentifiers(tieuDeCot);
+        tableModel.setRowCount(0); 
+        
+        
+       
+        table.setRowHeight(30); 
+    }
+  
+    public static void main(String[] args) {
+        new frm_HoaDon();
+    }
+}
